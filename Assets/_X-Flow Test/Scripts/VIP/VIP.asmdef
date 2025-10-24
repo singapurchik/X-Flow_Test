@@ -1,0 +1,16 @@
+{
+    "name": "VIP",
+    "rootNamespace": "VIP",
+    "references": [
+        "GUID:d2b890a3db6b4604486be4a6e0eb525c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

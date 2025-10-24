@@ -2,7 +2,7 @@ namespace Shop
 {
 	public interface IStatsView
 	{
-		public void SetLabel(string name);
+		public void SetLabel(string label);
 		
 		public void SetValue(string value);
 	}

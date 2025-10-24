@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3620421607443832165}
+  - component: {fileID: 208409609788203298}
   - component: {fileID: 6983341286634216989}
-  - component: {fileID: 6902359917247301871}
   m_Layer: 0
   m_Name: Shop Stat View
   m_TagString: Untagged
@@ -39,6 +39,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.000033379}
   m_SizeDelta: {x: 0, y: 76.5007}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &208409609788203298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6859801063916991947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c966be827e42e58b2966170c8aa918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 8115206408663205261}
 --- !u!114 &6983341286634216989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,20 +78,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &6902359917247301871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6859801063916991947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 0
 --- !u!1 &7595394525449639897
 GameObject:
   m_ObjectHideFlags: 0

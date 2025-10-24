@@ -22,9 +22,14 @@ namespace Shop
 				.AsSingle()
 				.WithArguments(_healthCurrentKey, _healthMaxKey);
 			
-			Container.BindInstance(_statsViewsPool).WhenInjectedIntoInstance(_view);
-			Container.BindInstance(_bundlesPool);
-			Container.BindInstance(_view);
+			Container.Bind<IShopView>()
+				.FromInstance(_view);
+			
+			Container.BindInstance(_statsViewsPool)
+				.WhenInjectedIntoInstance(_view);
+			
+			Container.BindInstance(_bundlesPool)
+				.WhenInjectedIntoInstance(_view);
 
 			Container.BindInterfacesAndSelfTo<Shop>()
 				.AsSingle()

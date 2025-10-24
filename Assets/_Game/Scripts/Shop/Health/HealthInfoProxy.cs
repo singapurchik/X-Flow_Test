@@ -15,5 +15,7 @@ namespace Shop
 
 		public int CurrentHealth => PlayerData.GetInt(_currentKey);
 		public int MaxHealth => PlayerData.GetInt(_maxKey);
+
+		public string Name => "Health";
 	}
 }

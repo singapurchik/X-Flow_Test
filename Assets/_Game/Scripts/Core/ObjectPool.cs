@@ -88,7 +88,7 @@ namespace Core
 			return oldest;
 		}
 
-		protected abstract void InitializeObject(T bundle);
+		protected abstract void InitializeObject(T obj);
 		protected abstract void CleanupObject(T obj);
 	}
 }

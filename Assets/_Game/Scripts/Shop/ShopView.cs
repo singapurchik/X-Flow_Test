@@ -1,11 +1,16 @@
 using UnityEngine;
+using Zenject;
 
 namespace Shop
 {
-	public class ShopView : MonoBehaviour
+	public sealed class ShopView : MonoBehaviour
 	{
 		[SerializeField] private RectTransform _bundlesContainer;
 		
-		public RectTransform BundlesContainer => _bundlesContainer;
+		[Inject] private StatsViewsPool _statsPool;
+
+		public void AddBundle(Transform bundle) => bundle.SetParent(_bundlesContainer, false);
+
+		public IStatsView CreateStatsView() => _statsPool.Get();
 	}
 }

@@ -1,4 +1,3 @@
-using UnityEngine;
 using Core;
 
 namespace Health

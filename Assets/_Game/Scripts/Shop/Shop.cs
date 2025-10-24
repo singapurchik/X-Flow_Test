@@ -1,12 +1,18 @@
+using Zenject;
+
 namespace Shop
 {
 	public sealed class Shop
 	{
-		private readonly IHealthInfo _healthInfo;
+		[Inject] private BundlesPool _bundlesPool;
+		[Inject] private IHealthInfo _health;
+		[Inject] private ShopView _view;
 
-		public Shop(IHealthInfo healthInfo)
+		[Inject]
+		private void Construct()
 		{
-			_healthInfo = healthInfo;
+			var bundle = _bundlesPool.Get();
+			bundle.transform.SetParent(_view.BundlesContainer, false);
 		}
 	}
 }

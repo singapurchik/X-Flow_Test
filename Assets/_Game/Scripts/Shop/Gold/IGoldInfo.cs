@@ -1,6 +1,6 @@
-namespace Shop.Gold
+namespace Shop
 {
-	public interface IGoldInfo
+	public interface IGoldInfo : IHasDisplayName
 	{
 		public int CurrentGold { get; }
 	}

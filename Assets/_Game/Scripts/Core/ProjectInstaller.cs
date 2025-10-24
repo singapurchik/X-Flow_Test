@@ -6,6 +6,7 @@ namespace Core
 	{
 		public override void InstallBindings()
 		{
+			Container.BindInterfacesAndSelfTo<PlayerData>().AsSingle().NonLazy();
 		}
 	}
 }

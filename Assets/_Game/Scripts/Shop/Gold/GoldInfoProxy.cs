@@ -1,11 +1,20 @@
+using Zenject;
 using Core;
 
-namespace Shop.Gold
+namespace Shop
 {
 	public class GoldInfoProxy : IGoldInfo
 	{
+		[Inject] private IPlayerDataInfo _playerDataInfo;
+		
 		private readonly PlayerDataKey _currentGoldKey;
 		
-		public int CurrentGold { get; }
+		public int CurrentGold => _playerDataInfo.GetInt(_currentGoldKey);
+		public string Name => "Gold";
+
+		public GoldInfoProxy(PlayerDataKey currentGoldKey)
+		{
+			_currentGoldKey = currentGoldKey;
+		}
 	}
 }

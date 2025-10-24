@@ -5,12 +5,14 @@ namespace Gold
 	public class Gold
 	{
 		private readonly PlayerDataKey _currentGoldKey;
+		private readonly PlayerData _playerData;
 
-		public Gold(PlayerDataKey currentGoldKey, int startGold)
+		public Gold(PlayerData playerData, PlayerDataKey currentGoldKey, int startGold)
 		{
 			_currentGoldKey = currentGoldKey;
+			_playerData = playerData;
 			
-			PlayerData.SetInt(_currentGoldKey, startGold);
+			_playerData.SetInt(_currentGoldKey, startGold);
 		}
 	}
 }

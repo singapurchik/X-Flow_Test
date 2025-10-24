@@ -14,6 +14,9 @@ namespace Shop
 		[Header("Assign the SAME keys used by Health")]
 		[SerializeField] private PlayerDataKey _healthCurrentKey;
 		[SerializeField] private PlayerDataKey _healthMaxKey;
+		
+		[Header("Assign the SAME keys used by Gold")]
+		[SerializeField] private PlayerDataKey _goldCurrentKey;
 
 		public override void InstallBindings()
 		{
@@ -21,6 +24,11 @@ namespace Shop
 				.To<HealthInfoProxy>()
 				.AsSingle()
 				.WithArguments(_healthCurrentKey, _healthMaxKey);
+			
+			Container.Bind<IGoldInfo>()
+				.To<GoldInfoProxy>()
+				.AsSingle()
+				.WithArguments(_goldCurrentKey);
 			
 			Container.Bind<IShopView>()
 				.FromInstance(_view);

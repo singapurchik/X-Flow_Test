@@ -1,10 +1,8 @@
 namespace Shop
 {
-	public interface IHealthInfo
+	public interface IHealthInfo : IHasDisplayName
 	{
 		public int CurrentHealth { get; }
 		public int MaxHealth { get; }
-		
-		public string Name { get; }
 	}
 }

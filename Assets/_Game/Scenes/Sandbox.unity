@@ -836,6 +836,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26714faa510e4275af0ccf06b5f78f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &575800296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 575800298}
+  - component: {fileID: 575800297}
+  m_Layer: 0
+  m_Name: Gold
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &575800297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575800296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54393da05be48a894e740af7c2c0517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentGoldKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
+  _startGold: 100
+--- !u!4 &575800298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575800296}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &772122720
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +992,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1491733842}
   - {fileID: 2143921421}
+  - {fileID: 575800297}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2527,7 +2574,7 @@ GameObject:
   - component: {fileID: 1773253164}
   - component: {fileID: 1773253165}
   m_Layer: 0
-  m_Name: Stats View
+  m_Name: Stats Views Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2570,7 +2617,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 50
+  m_Spacing: 260
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -2859,6 +2906,7 @@ MonoBehaviour:
   _view: {fileID: 2143921422}
   _healthCurrentKey: {fileID: 11400000, guid: ff8cb79d0abf90b4491742314aab9a78, type: 2}
   _healthMaxKey: {fileID: 11400000, guid: 2b2f9eb43362e724ab5fc10c7abb5399, type: 2}
+  _goldCurrentKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
 --- !u!114 &2143921422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2872,6 +2920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bundlesContainer: {fileID: 772122721}
+  _statsViewContainer: {fileID: 1773253164}
 --- !u!114 &2143921423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2891,5 +2940,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 813750430}
   - {fileID: 330585546}
+  - {fileID: 575800298}
   - {fileID: 1491733843}
   - {fileID: 2143921420}

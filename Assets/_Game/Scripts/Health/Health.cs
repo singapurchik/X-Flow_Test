@@ -1,4 +1,5 @@
 using Core;
+using Zenject;
 
 namespace Health
 {
@@ -6,14 +7,16 @@ namespace Health
 	{
 		private readonly PlayerDataKey _currentHealthKey;
 		private readonly PlayerDataKey _maxHealthKey;
+		private readonly PlayerData _playerData;
 		
-		public Health(PlayerDataKey currentHealthKey, PlayerDataKey maxHealthKey, int defaultMax)
+		public Health(PlayerData playerData, PlayerDataKey currentHealthKey, PlayerDataKey maxHealthKey, int defaultMax)
 		{
 			_currentHealthKey = currentHealthKey;
 			_maxHealthKey = maxHealthKey;
+			_playerData = playerData;
 
-			PlayerData.SetInt(_currentHealthKey, defaultMax);
-			PlayerData.SetInt(_maxHealthKey, defaultMax);
+			_playerData.SetInt(_currentHealthKey, defaultMax);
+			_playerData.SetInt(_maxHealthKey, defaultMax);
 		}
 	}
 }

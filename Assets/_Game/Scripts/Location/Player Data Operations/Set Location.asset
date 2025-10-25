@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff74dfcfca154d42ad9ae30801561a66, type: 3}
-  m_Name: Bundle Data
+  m_Script: {fileID: 11500000, guid: dd3ec81d87c145419713960eecb0f722, type: 3}
+  m_Name: Set Location
   m_EditorClassIdentifier: 
-  _costs:
-  - {fileID: 11400000, guid: 10fb02b970f639845aeff7fad6089f6e, type: 2}
-  _rewards:
-  - {fileID: 11400000, guid: 3784bda1e641a124ab64012436ebc5cc, type: 2}
+  _descriptor: {fileID: 11400000, guid: ae1c282cbf1b63b4587b8f7ef5d8a5a4, type: 2}
+  _currentLocationKey: {fileID: 11400000, guid: 030f73785b3f64f488cfa5cd57c9db44, type: 2}
+  _target: 1

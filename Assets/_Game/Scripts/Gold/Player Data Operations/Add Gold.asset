@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff74dfcfca154d42ad9ae30801561a66, type: 3}
-  m_Name: Bundle Data
+  m_Script: {fileID: 11500000, guid: 6ce78680746f428ba5315a583d4e8c36, type: 3}
+  m_Name: Add Gold
   m_EditorClassIdentifier: 
-  _costs:
-  - {fileID: 11400000, guid: 10fb02b970f639845aeff7fad6089f6e, type: 2}
-  _rewards:
-  - {fileID: 11400000, guid: 3784bda1e641a124ab64012436ebc5cc, type: 2}
+  _descriptor: {fileID: 11400000, guid: 76f626d6fbdeff647a92a6ac5aaf6772, type: 2}
+  _currentGoldKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
+  _amount: 1

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff74dfcfca154d42ad9ae30801561a66, type: 3}
-  m_Name: Bundle Data
+  m_Script: {fileID: 11500000, guid: a816527b2bf84709861228077ac3d1a3, type: 3}
+  m_Name: Spend Health
   m_EditorClassIdentifier: 
-  _costs:
-  - {fileID: 11400000, guid: 10fb02b970f639845aeff7fad6089f6e, type: 2}
-  _rewards:
-  - {fileID: 11400000, guid: 3784bda1e641a124ab64012436ebc5cc, type: 2}
+  _descriptor: {fileID: 11400000, guid: d5d4f2a1fca59e448b8ab65c73aa3335, type: 2}
+  _currentHealthKey: {fileID: 11400000, guid: ff8cb79d0abf90b4491742314aab9a78, type: 2}
+  _amount: 1

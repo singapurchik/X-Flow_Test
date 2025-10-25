@@ -3004,9 +3004,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75ecfb8d58cf99f4d964a65fbd0c693b, type: 2}
   _healthCurrentKey: {fileID: 11400000, guid: ff8cb79d0abf90b4491742314aab9a78, type: 2}
   _healthMaxKey: {fileID: 11400000, guid: 2b2f9eb43362e724ab5fc10c7abb5399, type: 2}
+  _healthDescriptor: {fileID: 11400000, guid: d5d4f2a1fca59e448b8ab65c73aa3335, type: 2}
   _goldCurrentKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
+  _goldDescriptor: {fileID: 11400000, guid: 76f626d6fbdeff647a92a6ac5aaf6772, type: 2}
   _currentLocationKey: {fileID: 11400000, guid: 030f73785b3f64f488cfa5cd57c9db44, type: 2}
+  _locationDescriptor: {fileID: 11400000, guid: ae1c282cbf1b63b4587b8f7ef5d8a5a4, type: 2}
   _vipRemainingTime: {fileID: 11400000, guid: 4eeb71cf201dd5f4480bf9c2aa91d691, type: 2}
+  _vipDescriptor: {fileID: 11400000, guid: 4182833152f579e4b9b466ec67b19385, type: 2}
 --- !u!114 &2143921422
 MonoBehaviour:
   m_ObjectHideFlags: 0

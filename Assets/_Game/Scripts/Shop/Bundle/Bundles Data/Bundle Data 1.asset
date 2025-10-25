@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff74dfcfca154d42ad9ae30801561a66, type: 3}
   m_Name: Bundle Data 1
   m_EditorClassIdentifier: 
-  _costs: 00000000010000000200000003000000
-  _rewards: 00000000010000000200000003000000
+  _costs:
+  - {fileID: 11400000, guid: 10fb02b970f639845aeff7fad6089f6e, type: 2}
+  - {fileID: 11400000, guid: 8231bb21c3f4f4c41a1616e3be01ab47, type: 2}
+  _rewards:
+  - {fileID: 11400000, guid: 3784bda1e641a124ab64012436ebc5cc, type: 2}
+  - {fileID: 11400000, guid: 8783a633fe642f1468eda10e71bc3292, type: 2}

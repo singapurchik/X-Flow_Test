@@ -16,15 +16,23 @@ namespace Shop
 		[Header("Assign the SAME keys used by Health")]
 		[SerializeField] private PlayerDataKey _healthCurrentKey;
 		[SerializeField] private PlayerDataKey _healthMaxKey;
+		[Space(5)]
+		[SerializeField] private ResourceDescriptor _healthDescriptor;
 		
 		[Header("Assign the SAME keys used by Gold")]
 		[SerializeField] private PlayerDataKey _goldCurrentKey;
+		[Space(5)]
+		[SerializeField] private ResourceDescriptor _goldDescriptor;
 		
 		[Header("Assign the SAME keys used by Location")]
 		[SerializeField] private PlayerDataKey _currentLocationKey;
+		[Space(5)]
+		[SerializeField] private ResourceDescriptor _locationDescriptor;
 		
 		[Header("Assign the SAME keys used by VIP")]
 		[SerializeField] private PlayerDataKey _vipRemainingTime;
+		[Space(5)]
+		[SerializeField] private ResourceDescriptor _vipDescriptor;
 
 		public override void InstallBindings()
 		{
@@ -35,22 +43,22 @@ namespace Shop
 			Container.Bind<IHealthInfo>()
 				.To<HealthInfoProxy>()
 				.AsSingle()
-				.WithArguments(_healthCurrentKey, _healthMaxKey);
+				.WithArguments(_healthDescriptor, _healthCurrentKey, _healthMaxKey);
 			
 			Container.Bind<IGoldInfo>()
 				.To<GoldInfoProxy>()
 				.AsSingle()
-				.WithArguments(_goldCurrentKey);
+				.WithArguments(_goldDescriptor, _goldCurrentKey);
 			
 			Container.Bind<ILocationInfo>()
 				.To<LocationInfoProxy>()
 				.AsSingle()
-				.WithArguments(_currentLocationKey);
+				.WithArguments(_locationDescriptor, _currentLocationKey);
 			
 			Container.Bind<IVIPInfo>()
 				.To<VIPInfoProxy>()
 				.AsSingle()
-				.WithArguments(_vipRemainingTime);
+				.WithArguments(_vipDescriptor, _vipRemainingTime);
 			
 			Container.Bind<IShopView>()
 				.FromInstance(_view)

@@ -2,8 +2,9 @@ namespace Location
 {
 	public enum LocationType
 	{
-		Forest = 0,
+		Lobby = 0,
 		City = 1,
+		Forest = 2,
 		Mountains = 3
 	}
 }

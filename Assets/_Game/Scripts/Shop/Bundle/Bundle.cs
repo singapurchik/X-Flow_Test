@@ -1,8 +1,8 @@
 using UnityEngine;
 using Zenject;
 using System;
-using Core;
 using TMPro;
+using Core;
 
 namespace Shop
 {
@@ -14,7 +14,9 @@ namespace Shop
 		[Inject] private BundlePhraseFormatter _formatter;
 		[Inject] private IPlayerDataInfo _playerData;
 
-		private BundleData _currentData;
+		public BundleData _currentData;
+
+		private int _currentAmount;
 
 		public event Action<BundleData> OnBuyButtonClicked;
 		public event Action<Bundle> OnBundleOutOfStock;
@@ -25,8 +27,10 @@ namespace Shop
 			
 			_currentData = data;
 			_costsRewardsText.text =
-				_formatter.Build(new CostOpsView(data.Costs), new RewardOpsView(data.Rewards));
+				_formatter.Build(new CostOperationsView(data.Costs), 
+					new RewardOperationsView(data.Rewards));
 
+			_currentAmount = _currentData.Amount;
 			UpdateButtonState();
 		}
 
@@ -40,32 +44,35 @@ namespace Shop
 
 		private static bool CanPay(BundleData data, IPlayerDataInfo info)
 		{
-			foreach (var e in data.Costs)
-			{
-				if (!CanApplyConsumeEntry(e, info))
+			foreach (var costEntry in data.Costs)
+				if (!CanApplyConsumeEntry(costEntry, info))
 					return false;
-			}
+			
 			return true;
 		}
 		
 		private static bool CanApplyConsumeEntry(CostEntry entry, IPlayerDataInfo info)
 		{
-			if (!entry.Operation)
-				return false;
-
-			if (entry.Operation is IOperationWithParameter opWithParam && entry.Param != null)
+			if (entry.Operation)
 			{
-				if (!opWithParam.IsSupports(entry.Param))
+				if (entry.Operation is IOperationWithParameter operationWithParameter && entry.Parameter != null)
 				{
-					Debug.LogWarning($"[Shop] Param of type {entry.Param.GetType().Name} " +
-					                 $"is not supported by {entry.Operation.name}. Fallback to default.");
-					return entry.Operation.IsCanApply(info);
+					if (!operationWithParameter.IsSupports(entry.Parameter))
+					{
+						Debug.LogWarning($"[Shop] Param of type {entry.Parameter.GetType().Name} " +
+						                 $"is not supported by {entry.Operation.name}. Fallback to default.");
+						return entry.Operation.IsCanApply(info);
+					}
+					return operationWithParameter.IsCanApply(info, entry.Parameter);
 				}
-
-				return opWithParam.IsCanApply(info, entry.Param);
+				return entry.Operation.IsCanApply(info);
 			}
+			return false;
+		}
 
-			return entry.Operation.IsCanApply(info);
+		public void DecreaseAmount()
+		{
+			_buyButton.Enable();
 		}
 		
 		private void BundleOutOfStock()
@@ -74,6 +81,10 @@ namespace Shop
 			OnBundleOutOfStock?.Invoke(this);
 		}
 		
-		private void InvokeOnBuyButtonClicked() => OnBuyButtonClicked?.Invoke(_currentData);
+		private void InvokeOnBuyButtonClicked()
+		{
+			_buyButton.SetProcessingText();
+			OnBuyButtonClicked?.Invoke(_currentData);
+		}
 	}
 }

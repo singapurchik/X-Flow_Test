@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00087547, y: 0.000066757}
-  m_SizeDelta: {x: 264.21, y: 103.88}
+  m_AnchoredPosition: {x: 0.000020981, y: -0.00001049}
+  m_SizeDelta: {x: 232.0913, y: 91.1664}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4553646524623411936
 CanvasRenderer:
@@ -720,3 +720,4 @@ MonoBehaviour:
   _buyButton:
     _buyButtonText: {fileID: 3995407489623691629}
     _button: {fileID: 267291011309192169}
+  _currentData: {fileID: 0}

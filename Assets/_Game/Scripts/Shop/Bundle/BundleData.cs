@@ -1,23 +1,28 @@
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Shop
 {
 	[CreateAssetMenu(fileName = "Bundle Data", menuName = "Shop/Bundle Data")]
 	public class BundleData : ScriptableObject
 	{
+		[SerializeField] private int _amount = 3;
+		
 		[Header("Costs")]
 		[SerializeField] private List<CostEntry> _costs = new();
 
 		[Header("Rewards")]
 		[SerializeField] private List<RewardEntry> _rewards = new();
 
-		public IReadOnlyList<CostEntry> Costs => _costs;
 		public IReadOnlyList<RewardEntry> Rewards => _rewards;
+		public IReadOnlyList<CostEntry> Costs => _costs;
+		
+		public int Amount => _amount;
 		
 #if UNITY_EDITOR
         private void OnValidate()
@@ -28,7 +33,7 @@ namespace Shop
                 EditorUtility.SetDirty(this);
             }
 
-            bool changed = false;
+            var changed = false;
 
             changed |= AutoEnsureParams(_costs);
             changed |= AutoEnsureParams(_rewards);
@@ -39,7 +44,8 @@ namespace Shop
             changed |= EnsureNoDuplicateOperations(_costs, "Costs");
             changed |= EnsureNoDuplicateOperations(_rewards, "Rewards");
 
-            if (changed) EditorUtility.SetDirty(this);
+            if (changed)
+	            EditorUtility.SetDirty(this);
         }
 
         private static bool AutoEnsureParams(List<CostEntry> list)
@@ -52,19 +58,19 @@ namespace Shop
 
                 if (!e.Operation)
                 {
-                    if (e.Param != null) { e.Param = null; changed = true; }
+                    if (e.Parameter != null) { e.Parameter = null; changed = true; }
                 }
                 else if (e.Operation is IOperationWithParameter op)
                 {
-                    if (e.Param == null || !op.IsSupports(e.Param))
+                    if (e.Parameter == null || !op.IsSupports(e.Parameter))
                     {
-                        e.Param = op.CreateDefaultParam(); // новый экземпляр
+                        e.Parameter = op.CreateDefaultParam();
                         changed = true;
                     }
                 }
                 else
                 {
-                    if (e.Param != null) { e.Param = null; changed = true; }
+                    if (e.Parameter != null) { e.Parameter = null; changed = true; }
                 }
                 list[i] = e;
             }
@@ -81,19 +87,19 @@ namespace Shop
 
                 if (!e.Operation)
                 {
-                    if (e.Param != null) { e.Param = null; changed = true; }
+                    if (e.Parameter != null) { e.Parameter = null; changed = true; }
                 }
                 else if (e.Operation is IOperationWithParameter op)
                 {
-                    if (e.Param == null || !op.IsSupports(e.Param))
+                    if (e.Parameter == null || !op.IsSupports(e.Parameter))
                     {
-                        e.Param = op.CreateDefaultParam();
+                        e.Parameter = op.CreateDefaultParam();
                         changed = true;
                     }
                 }
                 else
                 {
-                    if (e.Param != null) { e.Param = null; changed = true; }
+                    if (e.Parameter != null) { e.Parameter = null; changed = true; }
                 }
                 list[i] = e;
             }
@@ -107,9 +113,9 @@ namespace Shop
             for (int i = 0; i < list.Count; i++)
             {
                 var e = list[i];
-                if (e?.Param != null && !seen.Add(e.Param))
+                if (e?.Parameter != null && !seen.Add(e.Parameter))
                 {
-                    e.Param = CloneParam(e.Param);
+                    e.Parameter = CloneParam(e.Parameter);
                     changed = true;
                 }
                 list[i] = e;
@@ -124,9 +130,9 @@ namespace Shop
             for (int i = 0; i < list.Count; i++)
             {
                 var e = list[i];
-                if (e?.Param != null && !seen.Add(e.Param))
+                if (e?.Parameter != null && !seen.Add(e.Parameter))
                 {
-                    e.Param = CloneParam(e.Param);
+                    e.Parameter = CloneParam(e.Parameter);
                     changed = true;
                 }
                 list[i] = e;
@@ -146,9 +152,10 @@ namespace Shop
                 int id = e.Operation.GetInstanceID();
                 if (!seen.Add(id))
                 {
-                    Debug.LogWarning($"[BundleData] Duplicate operation in {listName} at index {i}: {e.Operation.name}. Slot cleared.");
+                    Debug.LogWarning($"[BundleData] Duplicate operation in {listName}" +
+                                     $" at index {i}: {e.Operation.name}. Slot cleared.");
                     e.Operation = null;
-                    e.Param = null;
+                    e.Parameter = null;
                     list[i] = e;
                     changed = true;
                 }
@@ -168,9 +175,10 @@ namespace Shop
                 int id = e.Operation.GetInstanceID();
                 if (!seen.Add(id))
                 {
-                    Debug.LogWarning($"[BundleData] Duplicate operation in {listName} at index {i}: {e.Operation.name}. Slot cleared.");
+                    Debug.LogWarning($"[BundleData] Duplicate operation in {listName}" +
+                                     $" at index {i}: {e.Operation.name}. Slot cleared.");
                     e.Operation = null;
-                    e.Param = null;
+                    e.Parameter = null;
                     list[i] = e;
                     changed = true;
                 }
@@ -179,17 +187,7 @@ namespace Shop
         }
 
         private static IOperationParameter CloneParam(IOperationParameter src)
-        {
-            var json = JsonUtility.ToJson(src);
-            return (IOperationParameter)JsonUtility.FromJson(json, src.GetType());
-        }
-
-        private sealed class ReferenceEqualityComparer<T> : IEqualityComparer<T> where T : class
-        {
-            public static readonly ReferenceEqualityComparer<T> Instance = new();
-            public bool Equals(T x, T y) => ReferenceEquals(x, y);
-            public int GetHashCode(T obj) => System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj);
-        }
+			=> (IOperationParameter)JsonUtility.FromJson(JsonUtility.ToJson(src), src.GetType());
 #endif
     }
 }

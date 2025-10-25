@@ -2275,8 +2275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentHealthKey: {fileID: 11400000, guid: ff8cb79d0abf90b4491742314aab9a78, type: 2}
-  _maxHealthKey: {fileID: 11400000, guid: 2b2f9eb43362e724ab5fc10c7abb5399, type: 2}
-  _maxHealth: 100
+  _startHealth: 100
 --- !u!4 &1491733843
 Transform:
   m_ObjectHideFlags: 0
@@ -2417,6 +2416,7 @@ GameObject:
   - component: {fileID: 1572306529}
   - component: {fileID: 1572306528}
   - component: {fileID: 1572306527}
+  - component: {fileID: 1572306530}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -2508,6 +2508,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1572306530
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572306525}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1690257423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3000,6 +3012,7 @@ MonoBehaviour:
   _view: {fileID: 2143921422}
   _bundles:
   - {fileID: 11400000, guid: 113d3820e1181204394815cbd9791f57, type: 2}
+  - {fileID: 11400000, guid: 669e45eaab8ebd346af341108b5b8807, type: 2}
   _dataValueInfos:
   - {fileID: 11400000, guid: c41e284723211f44380dd2fc10b24767, type: 2}
   - {fileID: 11400000, guid: 678f47ddd2cdb3c4ca68a46dc876cfe6, type: 2}
@@ -3017,8 +3030,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49961fe72884d52bab5fec1037896a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bundlesContainer: {fileID: 772122721}
   _statsViewContainer: {fileID: 1773253164}
+  _bundlesContainer: {fileID: 772122721}
+  _canvasGroup: {fileID: 1572306530}
 --- !u!114 &2143921423
 MonoBehaviour:
   m_ObjectHideFlags: 0

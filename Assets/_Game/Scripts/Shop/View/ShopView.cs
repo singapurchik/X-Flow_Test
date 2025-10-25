@@ -7,8 +7,9 @@ namespace Shop
 {
 	public sealed class ShopView : MonoBehaviour, IShopView
 	{
-		[SerializeField] private RectTransform _bundlesContainer;
 		[SerializeField] private RectTransform _statsViewContainer;
+		[SerializeField] private RectTransform _bundlesContainer;
+		[SerializeField] private CanvasGroup _canvasGroup;
 
 		[Inject] private IReadOnlyList<PlayerDataValueInfo> _dataValueInfos;
 		[Inject] private IPlayerDataInfo _dataInfo;
@@ -18,6 +19,18 @@ namespace Shop
 		private readonly Dictionary<PlayerDataValueInfo, StatsView> _statsView = new (10);
 		private readonly HashSet<Bundle> _bundles = new (10);
 		
+		public void DisableInput()
+		{
+			_canvasGroup.blocksRaycasts = false;
+			_canvasGroup.interactable = false;
+		}
+
+		public void EnableInput()
+		{
+			_canvasGroup.blocksRaycasts = true;
+			_canvasGroup.interactable = true;
+		}
+
 		public void CreateStatsViews()
 		{
 			foreach (var valueInfo in _dataValueInfos)

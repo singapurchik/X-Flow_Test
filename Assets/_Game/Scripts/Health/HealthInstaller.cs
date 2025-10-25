@@ -7,14 +7,13 @@ namespace Health
 	public class HealthInstaller : MonoInstaller
 	{
 		[SerializeField] private PlayerDataKey _currentHealthKey;
-		[SerializeField] private PlayerDataKey _maxHealthKey;
-		[SerializeField] private int _maxHealth = 100;
+		[SerializeField] private int _startHealth = 100;
 
 		public override void InstallBindings()
 		{
 			Container.Bind<Health>()
 				.AsSingle()
-				.WithArguments(_currentHealthKey, _maxHealthKey, _maxHealth)
+				.WithArguments(_currentHealthKey, _startHealth)
 				.NonLazy(); 
 		}
 	}

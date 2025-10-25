@@ -4,16 +4,13 @@ using Core;
 
 namespace Shop
 {
-	public readonly struct CostOpsView : IReadOnlyList<IPlayerDataOperationInfo>
+	public readonly struct RewardOperationsView : IReadOnlyList<IPlayerDataOperationInfo>
 	{
-		private readonly IReadOnlyList<CostEntry> _src;
-		public CostOpsView(IReadOnlyList<CostEntry> src) => _src = src;
+		private readonly IReadOnlyList<RewardEntry> _src;
+		public RewardOperationsView(IReadOnlyList<RewardEntry> src) => _src = src;
 		public int Count => _src?.Count ?? 0;
 
-		public IPlayerDataOperationInfo this[int index]
-			=> _src[index]?.Operation as IPlayerDataOperationInfo;
-
-		public Enumerator GetEnumerator() => new Enumerator(_src);
+		public IPlayerDataOperationInfo this[int index] => _src[index]?.Operation;
 
 		IEnumerator<IPlayerDataOperationInfo> IEnumerable<IPlayerDataOperationInfo>.GetEnumerator()
 			=> new Enumerator(_src);
@@ -21,11 +18,11 @@ namespace Shop
 
 		public struct Enumerator : IEnumerator<IPlayerDataOperationInfo>
 		{
-			private readonly IReadOnlyList<CostEntry> _list;
+			private readonly IReadOnlyList<RewardEntry> _list;
 			private int _index;
 			private IPlayerDataOperationInfo _current;
 
-			public Enumerator(IReadOnlyList<CostEntry> list)
+			public Enumerator(IReadOnlyList<RewardEntry> list)
 			{ _list = list; _index = -1; _current = null; }
 
 			public bool MoveNext()
@@ -34,7 +31,7 @@ namespace Shop
 				if (_list != null && next < _list.Count)
 				{
 					_index = next;
-					_current = _list[next]?.Operation as IPlayerDataOperationInfo;
+					_current = _list[next]?.Operation;
 					return true;
 				}
 				_current = null;

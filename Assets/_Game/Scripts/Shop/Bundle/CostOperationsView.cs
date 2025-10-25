@@ -4,10 +4,10 @@ using Core;
 
 namespace Shop
 {
-	public readonly struct RewardOpsView : IReadOnlyList<IPlayerDataOperationInfo>
+	public readonly struct CostOperationsView : IReadOnlyList<IPlayerDataOperationInfo>
 	{
-		private readonly IReadOnlyList<RewardEntry> _src;
-		public RewardOpsView(IReadOnlyList<RewardEntry> src) => _src = src;
+		private readonly IReadOnlyList<CostEntry> _src;
+		public CostOperationsView(IReadOnlyList<CostEntry> src) => _src = src;
 		public int Count => _src?.Count ?? 0;
 
 		public IPlayerDataOperationInfo this[int index]
@@ -21,11 +21,11 @@ namespace Shop
 
 		public struct Enumerator : IEnumerator<IPlayerDataOperationInfo>
 		{
-			private readonly IReadOnlyList<RewardEntry> _list;
+			private readonly IReadOnlyList<CostEntry> _list;
 			private int _index;
 			private IPlayerDataOperationInfo _current;
 
-			public Enumerator(IReadOnlyList<RewardEntry> list)
+			public Enumerator(IReadOnlyList<CostEntry> list)
 			{ _list = list; _index = -1; _current = null; }
 
 			public bool MoveNext()

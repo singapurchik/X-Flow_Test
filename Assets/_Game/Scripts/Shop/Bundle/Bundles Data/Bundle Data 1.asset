@@ -12,22 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff74dfcfca154d42ad9ae30801561a66, type: 3}
   m_Name: Bundle Data 1
   m_EditorClassIdentifier: 
+  _amount: 3
   _costs:
   - Operation: {fileID: 11400000, guid: 10fb02b970f639845aeff7fad6089f6e, type: 2}
-    Param:
-      rid: 9063764211101597832
+    Parameter:
+      rid: 9063764211101597848
   _rewards:
-  - Operation: {fileID: 11400000, guid: 3784bda1e641a124ab64012436ebc5cc, type: 2}
-    Param:
-      rid: 9063764211101597833
+  - Operation: {fileID: 11400000, guid: 5884f2b5c6a472a4a962426dbbdffb06, type: 2}
+    Parameter:
+      rid: -2
   references:
     version: 2
     RefIds:
-    - rid: 9063764211101597832
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 9063764211101597848
       type: {class: IntAmountParameter, ns: Core, asm: Core}
       data:
         Amount: 1
-    - rid: 9063764211101597833
-      type: {class: IntAmountParameter, ns: Core, asm: Core}
-      data:
-        Amount: 2

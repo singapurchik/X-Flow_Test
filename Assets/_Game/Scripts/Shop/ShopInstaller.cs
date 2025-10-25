@@ -16,6 +16,7 @@ namespace Shop
 
 		public override void InstallBindings()
 		{
+			var backend = new Backend();
 			var shop = new Shop();
 			
 			Container.Bind<IReadOnlyList<PlayerDataValueInfo>>().FromInstance(_dataValueInfos).AsSingle();
@@ -37,6 +38,9 @@ namespace Shop
 
 			Container.Bind<BundlePhraseFormatter>()
 				.WhenInjectedInto<Bundle>();
+
+			Container.BindInstance(backend).WhenInjectedIntoInstance(shop);
+			Container.Bind<IBackend>().FromInstance(backend).AsSingle();
 			
 			Container.Inject(shop);
 		}

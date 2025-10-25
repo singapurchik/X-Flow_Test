@@ -5,6 +5,8 @@ namespace Shop
 		public Bundle CreateBundle(BundleData data);
 
 		public void CreateStatsViews();
+		public void DisableInput();
+		public void EnableInput();
 		public void UpdateView();
 	}
 }

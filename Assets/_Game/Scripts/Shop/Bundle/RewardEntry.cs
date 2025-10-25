@@ -6,5 +6,5 @@ using Core;
 public class RewardEntry
 {
 	public ProvideOperation Operation;
-	[SerializeReference] public IOperationParameter Param;
+	[SerializeReference] public IOperationParameter Parameter;
 }

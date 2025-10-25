@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core;
+using UnityEngine;
 using Zenject;
 
 namespace Shop
@@ -27,13 +28,53 @@ namespace Shop
 
 		private void OnBuyBundle(BundleData data)
 		{
-			foreach (var cost in data.Costs)
-				cost.Apply(_playerData);
-			
-			foreach (var reward in data.Rewards)
-				reward.Apply(_playerData);
-			
+			foreach (var e in data.Costs)
+				ApplyConsumeEntry(e, _playerData);
+
+			foreach (var e in data.Rewards)
+				ApplyProvideEntry(e, _playerData);
+
 			_view.UpdateView();
+		}
+		
+		private static void ApplyConsumeEntry(CostEntry entry, PlayerData data)
+		{
+			if (!entry.Operation)
+				return;
+
+			if (entry.Operation is IOperationWithParam opWithParam && entry.Param != null)
+			{
+				if (opWithParam.Supports(entry.Param))
+				{
+					opWithParam.Apply(data, entry.Param);
+					return;
+				}
+
+				Debug.LogWarning($"[Shop] Param of type {entry.Param.GetType().Name} " +
+				                 $"is not supported by {entry.Operation.name}. Fallback to default.");
+			}
+
+			entry.Operation.Apply(data);
+		}
+
+		private static void ApplyProvideEntry(RewardEntry entry, PlayerData data)
+		{
+			if (!entry.Operation)
+				return;
+
+			if (entry.Operation is IOperationWithParam opWithParam && entry.Param != null)
+			{
+				if (opWithParam.Supports(entry.Param))
+				{
+					opWithParam.Apply(data, entry.Param);
+					return;
+				}
+
+				Debug.LogWarning($"[Shop] Param of type {entry.Param.GetType().Name} " +
+				                 $"is not supported by {entry.Operation.name}. Fallback to default.");
+			}
+
+			entry.Operation.Apply(data);
 		}
 
 		private void OnBundleOutOfStock(Bundle bundle)

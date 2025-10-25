@@ -3000,8 +3000,6 @@ MonoBehaviour:
   _view: {fileID: 2143921422}
   _bundles:
   - {fileID: 11400000, guid: 113d3820e1181204394815cbd9791f57, type: 2}
-  - {fileID: 11400000, guid: b4e6fc4badd69a347b418a916535fe6e, type: 2}
-  - {fileID: 11400000, guid: 75ecfb8d58cf99f4d964a65fbd0c693b, type: 2}
   _dataValueInfos:
   - {fileID: 11400000, guid: c41e284723211f44380dd2fc10b24767, type: 2}
   - {fileID: 11400000, guid: 678f47ddd2cdb3c4ca68a46dc876cfe6, type: 2}

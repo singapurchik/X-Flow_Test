@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0494523e13346c8829a075a5c103494, type: 3}
-  m_Name: Reset Location To Default
+  m_Name: Remove Current Location
   m_EditorClassIdentifier: 
   _info: {fileID: 11400000, guid: 856acb804457dd240884b433c729d3b4, type: 2}
   _currentLocationKey: {fileID: 11400000, guid: 030f73785b3f64f488cfa5cd57c9db44, type: 2}

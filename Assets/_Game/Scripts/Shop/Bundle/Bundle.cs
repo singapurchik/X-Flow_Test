@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using System;
@@ -25,25 +24,48 @@ namespace Shop
 			_buyButton.AddListenerOnClick(InvokeOnBuyButtonClicked);
 			
 			_currentData = data;
-			_costsRewardsText.text = _formatter.Build(data.Costs, data.Rewards);
+			_costsRewardsText.text =
+				_formatter.Build(new CostOpsView(data.Costs), new RewardOpsView(data.Rewards));
 
 			UpdateButtonState();
 		}
 
 		public void UpdateButtonState()
 		{
-			if (IsCanPay(_currentData.Costs, _playerData))
+			if (CanPay(_currentData, _playerData))
 				_buyButton.Enable();
 			else
 				_buyButton.Disable();
 		}
 
-		private static bool IsCanPay(IReadOnlyList<ConsumeOperation> costs, IPlayerDataInfo playerData)
+		private static bool CanPay(BundleData data, IPlayerDataInfo info)
 		{
-			for (int i = 0; i < costs.Count; i++)
-				if (!costs[i].IsCanApply(playerData))
+			foreach (var e in data.Costs)
+			{
+				if (!CanApplyConsumeEntry(e, info))
 					return false;
+			}
 			return true;
+		}
+		
+		private static bool CanApplyConsumeEntry(CostEntry entry, IPlayerDataInfo info)
+		{
+			if (!entry.Operation)
+				return false;
+
+			if (entry.Operation is IOperationWithParam opWithParam && entry.Param != null)
+			{
+				if (!opWithParam.Supports(entry.Param))
+				{
+					Debug.LogWarning($"[Shop] Param of type {entry.Param.GetType().Name} " +
+					                 $"is not supported by {entry.Operation.name}. Fallback to default.");
+					return entry.Operation.IsCanApply(info);
+				}
+
+				return opWithParam.CanApply(info, entry.Param);
+			}
+
+			return entry.Operation.IsCanApply(info);
 		}
 		
 		private void BundleOutOfStock()

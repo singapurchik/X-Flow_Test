@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Add Gold
   m_EditorClassIdentifier: 
   _info: {fileID: 11400000, guid: c41e284723211f44380dd2fc10b24767, type: 2}
-  _currentGoldKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
-  _amount: 1
+  _goldKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
+  _defaultAmount: 1

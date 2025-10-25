@@ -4,21 +4,30 @@ using Core;
 namespace Gold
 {
 	[CreateAssetMenu(fileName = "Add Gold", menuName = "Gold/Operations/Add")]
-	public sealed class AddGold : ProvideOperation
+	public sealed class AddGold : ProvideOperation, IOperationWithParam
 	{
-		[SerializeField] private PlayerDataKey _currentGoldKey;
-		[Min(1)][SerializeField] private int _amount = 1;
+		[SerializeField] private PlayerDataKey _goldKey;
+		[Min(1)] [SerializeField] private int _defaultAmount = 1;
 
 		public override bool IsCanApply(IPlayerDataInfo data) => true;
-		
+
 		public override void Apply(PlayerData data)
-			=> data.SetInt(_currentGoldKey, data.GetInt(_currentGoldKey) + _amount);
-		
-#if UNITY_EDITOR
-		private void OnValidate()
+			=> data.SetInt(_goldKey, data.GetInt(_goldKey) + _defaultAmount);
+
+		public bool CanApply(IPlayerDataInfo data, IOperationParam param) => true;
+
+		public void Apply(PlayerData data, IOperationParam param)
 		{
-			_amount = Mathf.Max(1, _amount);
+			var p = param as IntAmountParam;
+			int add = Mathf.Max(1, p?.Amount ?? _defaultAmount);
+			data.SetInt(_goldKey, data.GetInt(_goldKey) + add);
 		}
+
+		public IOperationParam CreateDefaultParam() => new IntAmountParam { Amount = _defaultAmount };
+		public bool Supports(IOperationParam param) => param is IntAmountParam;
+
+#if UNITY_EDITOR
+		private void OnValidate() => _defaultAmount = Mathf.Max(1, _defaultAmount);
 #endif
 	}
 }

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _info: {fileID: 11400000, guid: 54a91341741dd3142b0f5e3aa3e4c4a4, type: 2}
   _vipRemainingTimeKey: {fileID: 11400000, guid: 4eeb71cf201dd5f4480bf9c2aa91d691, type: 2}
-  _seconds: 30
+  _defaultSeconds: 1

@@ -53,16 +53,16 @@ namespace Shop
 			if (!entry.Operation)
 				return false;
 
-			if (entry.Operation is IOperationWithParam opWithParam && entry.Param != null)
+			if (entry.Operation is IOperationWithParameter opWithParam && entry.Param != null)
 			{
-				if (!opWithParam.Supports(entry.Param))
+				if (!opWithParam.IsSupports(entry.Param))
 				{
 					Debug.LogWarning($"[Shop] Param of type {entry.Param.GetType().Name} " +
 					                 $"is not supported by {entry.Operation.name}. Fallback to default.");
 					return entry.Operation.IsCanApply(info);
 				}
 
-				return opWithParam.CanApply(info, entry.Param);
+				return opWithParam.IsCanApply(info, entry.Param);
 			}
 
 			return entry.Operation.IsCanApply(info);

@@ -46,12 +46,14 @@ namespace Location
 				
 				if (IsLobby(fixedValue))
 				{
-					Debug.Log("[SetLocation] No non-Lobby enum values found. Please add at least one non-zero LocationType.");
+					Debug.Log("[SetLocation] No non-Lobby enum values found." +
+					          " Please add at least one non-zero LocationType.");
 				}
 				else
 				{
 					_target = fixedValue;
-					Debug.Log($"[SetLocation] Lobby (0) is not allowed in the asset. Auto-corrected to '{_target}'.");
+					Debug.Log($"[SetLocation] Lobby (0) is not allowed in the asset." +
+					          $" Auto-corrected to '{_target}'.");
 				}
 			}
 		}

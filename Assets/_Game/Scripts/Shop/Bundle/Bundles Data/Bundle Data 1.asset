@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff74dfcfca154d42ad9ae30801561a66, type: 3}
-  m_Name: Bundle Data
+  m_Name: Bundle Data 1
   m_EditorClassIdentifier: 
   _costs:
   - Operation: {fileID: 11400000, guid: 10fb02b970f639845aeff7fad6089f6e, type: 2}

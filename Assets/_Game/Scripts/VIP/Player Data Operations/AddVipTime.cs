@@ -5,60 +5,48 @@ using Core;
 namespace VIP
 {
 	[CreateAssetMenu(fileName = "Add VIP Time", menuName = "VIP/Operations/Add VIP Time")]
-	public sealed class AddVipTime : ProvideOperation, IOperationWithParam
+	public sealed class AddVipTime : ProvideOperation, IOperationWithParameter
 	{
 		[SerializeField] private PlayerDataKey _vipRemainingTimeKey;
 		[Min(1)] [SerializeField] private int _defaultSeconds = 30;
 
-		public override bool IsCanApply(IPlayerDataInfo data) => true;
-
-		public override void Apply(PlayerData data)
+		public IOperationParameter CreateDefaultParam() => new IntAmountParameter { Amount = _defaultSeconds };
+		
+		public bool IsSupports(IOperationParameter parameter) => parameter is IntAmountParameter;
+		
+		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter) => IsCanApply(data);
+		
+		public void Apply(PlayerData data, IOperationParameter parameter)
 		{
-			int sec = Mathf.Max(1, _defaultSeconds);
-			AddSeconds(data, sec);
+			var intParam = parameter as IntAmountParameter;
+			AddSeconds(data, Mathf.Max(1, intParam?.Amount ?? _defaultSeconds));
 		}
 
-		public bool Supports(IOperationParam param) => param is IntAmountParam;
-
-		public bool CanApply(IPlayerDataInfo data, IOperationParam param) => true;
-
-		public void Apply(PlayerData data, IOperationParam param)
-		{
-			var p = param as IntAmountParam;
-			int sec = Mathf.Max(1, p?.Amount ?? _defaultSeconds);
-			AddSeconds(data, sec);
-		}
-
-		public IOperationParam CreateDefaultParam() => new IntAmountParam { Amount = _defaultSeconds };
-
-#if UNITY_EDITOR
-		private void OnValidate() => _defaultSeconds = Mathf.Max(1, _defaultSeconds);
-#endif
+		public override void Apply(PlayerData data) => AddSeconds(data, Mathf.Max(1, _defaultSeconds));
 
 		private void AddSeconds(PlayerData data, int seconds)
 		{
-			long now = DateTime.UtcNow.Ticks;
-			long currentUntil = ReadUntilTicks(data, _vipRemainingTimeKey);
+			var now = DateTime.UtcNow.Ticks;
+			var currentUntil = ReadUntilTicks(data, _vipRemainingTimeKey);
 
-			if (currentUntil < now) currentUntil = now;
+			if (currentUntil < now)
+				currentUntil = now;
 
-			long delta = (long)seconds * TimeSpan.TicksPerSecond;
-
-			long maxAdd = long.MaxValue - currentUntil;
-			long newUntil = delta > maxAdd ? long.MaxValue : currentUntil + delta;
+			var delta = seconds * TimeSpan.TicksPerSecond;
+			var maxAdd = long.MaxValue - currentUntil;
+			var newUntil = delta > maxAdd ? long.MaxValue : currentUntil + delta;
 
 			WriteUntilTicks(data, _vipRemainingTimeKey, newUntil);
 		}
 
 		private static long ReadUntilTicks(IPlayerDataInfo data, PlayerDataKey key)
-		{
-			var s = data.GetString(key, "0");
-			return long.TryParse(s, out var t) ? t : 0L;
-		}
+			=> long.TryParse(data.GetString(key, "0"), out var t) ? t : 0L;
 
 		private static void WriteUntilTicks(PlayerData data, PlayerDataKey key, long ticks)
-		{
-			data.SetString(key, ticks <= 0 ? "0" : ticks.ToString());
-		}
+			=> data.SetString(key, ticks <= 0 ? "0" : ticks.ToString());
+		
+#if UNITY_EDITOR
+		private void OnValidate() => _defaultSeconds = Mathf.Max(1, _defaultSeconds);
+#endif
 	}
 }

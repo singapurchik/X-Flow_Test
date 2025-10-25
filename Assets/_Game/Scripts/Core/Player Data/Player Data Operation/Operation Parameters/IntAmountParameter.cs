@@ -3,7 +3,7 @@ using System;
 namespace Core
 {
 	[Serializable]
-	public class IntAmountParam : IOperationParam
+	public class IntAmountParameter : IOperationParameter
 	{
 		public int Amount = 1;
 	}

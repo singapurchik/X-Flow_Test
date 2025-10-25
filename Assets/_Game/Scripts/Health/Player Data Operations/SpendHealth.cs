@@ -1,37 +1,36 @@
-// Health/SpendHealth.cs
 using UnityEngine;
 using Core;
 
 namespace Health
 {
 	[CreateAssetMenu(fileName = "Spend Health", menuName = "Health/Operations/Spend")]
-	public sealed class SpendHealth : ConsumeOperation, IOperationWithParam
+	public sealed class SpendHealth : ConsumeOperation, IOperationWithParameter
 	{
-		[SerializeField] private PlayerDataKey _hpKey;
+		[SerializeField] private PlayerDataKey _currentHealthKey;
 		[Min(1)] [SerializeField] private int _defaultAmount = 1;
 
+		public IOperationParameter CreateDefaultParam() => new IntAmountParameter { Amount = _defaultAmount };
+		
+		public bool IsSupports(IOperationParameter parameter) => parameter is IntAmountParameter;
+		
+		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter)
+		{
+			var intParam = parameter as IntAmountParameter;
+			return data.GetInt(_currentHealthKey) >= Mathf.Max(1, intParam?.Amount ?? _defaultAmount);
+		}
+		
 		public override bool IsCanApply(IPlayerDataInfo data)
-			=> data.GetInt(_hpKey) >= _defaultAmount;
+			=> data.GetInt(_currentHealthKey) >= _defaultAmount;
 
+		public void Apply(PlayerData data, IOperationParameter parameter)
+		{
+			var intParam = parameter as IntAmountParameter;
+			data.SetInt(_currentHealthKey,
+				data.GetInt(_currentHealthKey) - Mathf.Max(1, intParam?.Amount ?? _defaultAmount));
+		}
+		
 		public override void Apply(PlayerData data)
-			=> data.SetInt(_hpKey, data.GetInt(_hpKey) - _defaultAmount);
-
-		public bool CanApply(IPlayerDataInfo data, IOperationParam param)
-		{
-			var p = param as IntAmountParam;
-			int need = Mathf.Max(1, p?.Amount ?? _defaultAmount);
-			return data.GetInt(_hpKey) >= need;
-		}
-
-		public void Apply(PlayerData data, IOperationParam param)
-		{
-			var p = param as IntAmountParam;
-			int need = Mathf.Max(1, p?.Amount ?? _defaultAmount);
-			data.SetInt(_hpKey, data.GetInt(_hpKey) - need);
-		}
-
-		public IOperationParam CreateDefaultParam() => new IntAmountParam { Amount = _defaultAmount };
-		public bool Supports(IOperationParam param) => param is IntAmountParam;
+			=> data.SetInt(_currentHealthKey, data.GetInt(_currentHealthKey) - _defaultAmount);
 
 #if UNITY_EDITOR
 		private void OnValidate() => _defaultAmount = Mathf.Max(1, _defaultAmount);

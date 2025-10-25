@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60252a44083342f4b4adc6035ca8bd47, type: 3}
-  m_Name: Max Health
+  m_Script: {fileID: 11500000, guid: 627b2674a6f7493abd86e905a6ba68a3, type: 3}
+  m_Name: Spend Gold
   m_EditorClassIdentifier: 
-  _id: 252424f245a34c6c80c632d99b7b5fbb
+  _info: {fileID: 11400000, guid: c41e284723211f44380dd2fc10b24767, type: 2}
+  _currentGoldKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
+  _defaultAmount: 1

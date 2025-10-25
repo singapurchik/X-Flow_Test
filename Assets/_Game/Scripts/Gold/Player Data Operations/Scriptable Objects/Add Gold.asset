@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ac03766bee84191ba74319caeef26f9, type: 3}
-  m_Name: Add Health
+  m_Script: {fileID: 11500000, guid: 6ce78680746f428ba5315a583d4e8c36, type: 3}
+  m_Name: Add Gold
   m_EditorClassIdentifier: 
-  _info: {fileID: 11400000, guid: 678f47ddd2cdb3c4ca68a46dc876cfe6, type: 2}
-  _hpKey: {fileID: 11400000, guid: ff8cb79d0abf90b4491742314aab9a78, type: 2}
+  _info: {fileID: 11400000, guid: c41e284723211f44380dd2fc10b24767, type: 2}
+  _currentGoldKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}
   _defaultAmount: 1

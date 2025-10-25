@@ -2,7 +2,7 @@ using Core;
 
 namespace Location
 {
-	public class LocationParam : IOperationParam
+	public class LocationParam : IOperationParameter
 	{
 		public LocationType Value;
 	}

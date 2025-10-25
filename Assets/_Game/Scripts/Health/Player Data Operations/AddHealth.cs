@@ -5,27 +5,26 @@ using Core;
 namespace Health
 {
 	[CreateAssetMenu(fileName = "Add Health", menuName = "Health/Operations/Add")]
-	public sealed class AddHealth : ProvideOperation, IOperationWithParam
+	public sealed class AddHealth : ProvideOperation, IOperationWithParameter
 	{
-		[SerializeField] private PlayerDataKey _hpKey;
+		[SerializeField] private PlayerDataKey _currentHealthKey;
 		[Min(1)] [SerializeField] private int _defaultAmount = 1;
 
-		public override bool IsCanApply(IPlayerDataInfo data) => true;
-
+		public IOperationParameter CreateDefaultParam() => new IntAmountParameter { Amount = _defaultAmount };
+		
+		public bool IsSupports(IOperationParameter parameter) => parameter is IntAmountParameter;
+		
+		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter) => true;
+		
 		public override void Apply(PlayerData data)
-			=> data.SetInt(_hpKey, data.GetInt(_hpKey) + _defaultAmount);
+			=> data.SetInt(_currentHealthKey, data.GetInt(_currentHealthKey) + _defaultAmount);
 
-		public bool CanApply(IPlayerDataInfo data, IOperationParam param) => true;
-
-		public void Apply(PlayerData data, IOperationParam param)
+		public void Apply(PlayerData data, IOperationParameter parameter)
 		{
-			var p = param as IntAmountParam;
-			int add = Mathf.Max(1, p?.Amount ?? _defaultAmount);
-			data.SetInt(_hpKey, data.GetInt(_hpKey) + add);
+			var intParam = parameter as IntAmountParameter;
+			data.SetInt(_currentHealthKey,
+				data.GetInt(_currentHealthKey) + Mathf.Max(1, intParam?.Amount ?? _defaultAmount));
 		}
-
-		public IOperationParam CreateDefaultParam() => new IntAmountParam { Amount = _defaultAmount };
-		public bool Supports(IOperationParam param) => param is IntAmountParam;
 
 #if UNITY_EDITOR
 		private void OnValidate() => _defaultAmount = Mathf.Max(1, _defaultAmount);

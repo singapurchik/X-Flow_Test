@@ -4,27 +4,26 @@ using Core;
 namespace Gold
 {
 	[CreateAssetMenu(fileName = "Add Gold", menuName = "Gold/Operations/Add")]
-	public sealed class AddGold : ProvideOperation, IOperationWithParam
+	public sealed class AddGold : ProvideOperation, IOperationWithParameter
 	{
-		[SerializeField] private PlayerDataKey _goldKey;
+		[SerializeField] private PlayerDataKey _currentGoldKey;
 		[Min(1)] [SerializeField] private int _defaultAmount = 1;
 
-		public override bool IsCanApply(IPlayerDataInfo data) => true;
+		public IOperationParameter CreateDefaultParam() => new IntAmountParameter { Amount = _defaultAmount };
+		
+		public bool IsSupports(IOperationParameter parameter) => parameter is IntAmountParameter;
+		
+		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter) => IsCanApply(data);
 
-		public override void Apply(PlayerData data)
-			=> data.SetInt(_goldKey, data.GetInt(_goldKey) + _defaultAmount);
-
-		public bool CanApply(IPlayerDataInfo data, IOperationParam param) => true;
-
-		public void Apply(PlayerData data, IOperationParam param)
+		public void Apply(PlayerData data, IOperationParameter parameter)
 		{
-			var p = param as IntAmountParam;
-			int add = Mathf.Max(1, p?.Amount ?? _defaultAmount);
-			data.SetInt(_goldKey, data.GetInt(_goldKey) + add);
+			var intParam = parameter as IntAmountParameter;
+			data.SetInt(_currentGoldKey,
+				data.GetInt(_currentGoldKey) + Mathf.Max(1, intParam?.Amount ?? _defaultAmount));
 		}
-
-		public IOperationParam CreateDefaultParam() => new IntAmountParam { Amount = _defaultAmount };
-		public bool Supports(IOperationParam param) => param is IntAmountParam;
+		
+		public override void Apply(PlayerData data)
+			=> data.SetInt(_currentGoldKey, data.GetInt(_currentGoldKey) + _defaultAmount);
 
 #if UNITY_EDITOR
 		private void OnValidate() => _defaultAmount = Mathf.Max(1, _defaultAmount);

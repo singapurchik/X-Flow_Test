@@ -8,6 +8,6 @@ namespace Shop
 	public class CostEntry
 	{
 		public ConsumeOperation Operation;
-		[SerializeReference] public IOperationParam Param;
+		[SerializeReference] public IOperationParameter Param;
 	}
 }

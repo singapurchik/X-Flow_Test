@@ -42,9 +42,9 @@ namespace Shop
 			if (!entry.Operation)
 				return;
 
-			if (entry.Operation is IOperationWithParam opWithParam && entry.Param != null)
+			if (entry.Operation is IOperationWithParameter opWithParam && entry.Param != null)
 			{
-				if (opWithParam.Supports(entry.Param))
+				if (opWithParam.IsSupports(entry.Param))
 				{
 					opWithParam.Apply(data, entry.Param);
 					return;
@@ -62,9 +62,9 @@ namespace Shop
 			if (!entry.Operation)
 				return;
 
-			if (entry.Operation is IOperationWithParam opWithParam && entry.Param != null)
+			if (entry.Operation is IOperationWithParameter opWithParam && entry.Param != null)
 			{
-				if (opWithParam.Supports(entry.Param))
+				if (opWithParam.IsSupports(entry.Param))
 				{
 					opWithParam.Apply(data, entry.Param);
 					return;

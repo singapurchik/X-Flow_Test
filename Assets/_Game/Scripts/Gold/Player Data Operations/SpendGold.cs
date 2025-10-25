@@ -4,33 +4,31 @@ using Core;
 namespace Gold
 {
 	[CreateAssetMenu(fileName = "Spend Gold", menuName = "Gold/Operations/Spend")]
-	public sealed class SpendGold : ConsumeOperation, IOperationWithParam
+	public sealed class SpendGold : ConsumeOperation, IOperationWithParameter
 	{
-		[SerializeField] private PlayerDataKey _goldKey;
+		[SerializeField] private PlayerDataKey _currentGoldKey;
 		[Min(1)] [SerializeField] private int _defaultAmount = 1;
 
-		public override bool IsCanApply(IPlayerDataInfo data)
-			=> data.GetInt(_goldKey) >= _defaultAmount;
+		public IOperationParameter CreateDefaultParam() => new IntAmountParameter { Amount = _defaultAmount };
+		
+		public bool IsSupports(IOperationParameter parameter) => parameter is IntAmountParameter;
+		
+		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter)
+		{
+			var intParam = parameter as IntAmountParameter;
+			return data.GetInt(_currentGoldKey) >= Mathf.Max(1, intParam?.Amount ?? _defaultAmount);
+		}
+		public override bool IsCanApply(IPlayerDataInfo data) => data.GetInt(_currentGoldKey) >= _defaultAmount;
 
+		public void Apply(PlayerData data, IOperationParameter parameter)
+		{
+			var intParam = parameter as IntAmountParameter;
+			data.SetInt(_currentGoldKey,
+				data.GetInt(_currentGoldKey) - Mathf.Max(1, intParam?.Amount ?? _defaultAmount));
+		}
+		
 		public override void Apply(PlayerData data)
-			=> data.SetInt(_goldKey, data.GetInt(_goldKey) - _defaultAmount);
-
-		public bool CanApply(IPlayerDataInfo data, IOperationParam param)
-		{
-			var p = param as IntAmountParam;
-			int need = Mathf.Max(1, p?.Amount ?? _defaultAmount);
-			return data.GetInt(_goldKey) >= need;
-		}
-
-		public void Apply(PlayerData data, IOperationParam param)
-		{
-			var p = param as IntAmountParam;
-			int need = Mathf.Max(1, p?.Amount ?? _defaultAmount);
-			data.SetInt(_goldKey, data.GetInt(_goldKey) - need);
-		}
-
-		public IOperationParam CreateDefaultParam() => new IntAmountParam { Amount = _defaultAmount };
-		public bool Supports(IOperationParam param) => param is IntAmountParam;
+			=> data.SetInt(_currentGoldKey, data.GetInt(_currentGoldKey) - _defaultAmount);
 
 #if UNITY_EDITOR
 		private void OnValidate() => _defaultAmount = Mathf.Max(1, _defaultAmount);

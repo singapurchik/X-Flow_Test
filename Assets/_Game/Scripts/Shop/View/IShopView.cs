@@ -2,8 +2,11 @@ namespace Shop
 {
 	public interface IShopView
 	{
-		public void CreateBundle(BundleData data);
+		public Bundle CreateBundle(BundleData data);
 
 		public IStatsView CreateStatsView();
+
+		public void CreateStatsViews();
+		public void UpdateView();
 	}
 }

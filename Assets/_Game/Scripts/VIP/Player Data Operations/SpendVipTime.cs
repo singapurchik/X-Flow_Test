@@ -10,7 +10,7 @@ namespace VIP
 		[SerializeField] private PlayerDataKey _vipRemainingTimeKey;
 		[Min(1)][SerializeField] private int _seconds = 1;
 
-		public override bool CanApply(IPlayerDataInfo data)
+		public override bool IsCanApply(IPlayerDataInfo data)
 		{
 			var timeString = data.GetString(_vipRemainingTimeKey, "0");
 			

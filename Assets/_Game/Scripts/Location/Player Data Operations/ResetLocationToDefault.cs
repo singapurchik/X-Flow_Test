@@ -8,7 +8,7 @@ namespace Location
 	{
 		[SerializeField] private PlayerDataKey _currentLocationKey;
 
-		public override bool CanApply(IPlayerDataInfo data)
+		public override bool IsCanApply(IPlayerDataInfo data)
 		{
 			var current = data.GetString(_currentLocationKey, string.Empty);
 			var defaultLocation = default(LocationType).ToString();

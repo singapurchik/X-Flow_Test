@@ -11,7 +11,7 @@ namespace Location
 		[Tooltip("Target location to set. Lobby (enum value 0) is not allowed and will be auto-corrected.")]
 		[SerializeField] private LocationType _target;
 
-		public override bool CanApply(IPlayerDataInfo data) => true;
+		public override bool IsCanApply(IPlayerDataInfo data) => true;
 
 		public override void Apply(PlayerData data)
 		{

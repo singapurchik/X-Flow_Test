@@ -10,7 +10,7 @@ namespace VIP
 		[SerializeField] private PlayerDataKey _vipUntilTicksKey;
 		[Min(1)][SerializeField] private int _seconds = 30;
 
-		public override bool CanApply(IPlayerDataInfo data) => true;
+		public override bool IsCanApply(IPlayerDataInfo data) => true;
 
 		public override void Apply(PlayerData data)
 		{

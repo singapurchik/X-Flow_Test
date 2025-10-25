@@ -8,7 +8,7 @@ namespace Core
 
 		public ResourceDescriptor Descriptor => _descriptor;
 		
-		public abstract bool CanApply(IPlayerDataInfo data);
+		public abstract bool IsCanApply(IPlayerDataInfo data);
 		
 		public abstract void Apply(PlayerData data);
 	}

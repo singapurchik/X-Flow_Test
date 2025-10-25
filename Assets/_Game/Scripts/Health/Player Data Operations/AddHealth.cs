@@ -10,7 +10,7 @@ namespace Health
 		[SerializeField] private PlayerDataKey _maxHealthKey;
 		[Min(1)][SerializeField] private int _amount = 1;
 
-		public override bool CanApply(IPlayerDataInfo data) => true;
+		public override bool IsCanApply(IPlayerDataInfo data) => true;
 		
 		public override void Apply(PlayerData data)
 		{

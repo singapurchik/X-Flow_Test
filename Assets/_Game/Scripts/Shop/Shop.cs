@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core;
 using Zenject;
 
 namespace Shop
@@ -6,34 +7,39 @@ namespace Shop
 	public sealed class Shop : IShopEntryPoint
 	{
 		[Inject] private IReadOnlyList<BundleData> _bundlesData;
-		[Inject] private ILocationInfo _location;
-		[Inject] private IHealthInfo _health;
-		[Inject] private IGoldInfo _gold;
+		[Inject] private PlayerData _playerData;
 		[Inject] private IShopView _view;
-		[Inject] private IVIPInfo _vip;
 
 		public void Initialize()
 		{
 			if (_bundlesData != null && _bundlesData.Count > 0)
+			{
 				for (var i = 0; i < _bundlesData.Count; i++)
-					_view.CreateBundle(_bundlesData[i]);
+				{
+					var bundle = _view.CreateBundle(_bundlesData[i]);
+					bundle.OnBundleOutOfStock += OnBundleOutOfStock;
+					bundle.OnBuyButtonClicked += OnBuyBundle;
+				}
+			}
 
-			CreateStatsViews();
+			_view.CreateStatsViews();
 		}
 
-		private void CreateStatsViews()
+		private void OnBuyBundle(BundleData data)
 		{
-			CreateStatsView(_health.DisplayName, _health.CurrentHealth.ToString());
-			CreateStatsView(_location.DisplayName, _location.CurrentLocation);
-			CreateStatsView(_gold.DisplayName, _gold.CurrentGold.ToString());
-			CreateStatsView(_vip.DisplayName, _vip.RemainingSeconds + " sec");
+			foreach (var cost in data.Costs)
+				cost.Apply(_playerData);
+			
+			foreach (var reward in data.Rewards)
+				reward.Apply(_playerData);
+			
+			_view.UpdateView();
 		}
 
-		private void CreateStatsView(string label, string value)
+		private void OnBundleOutOfStock(Bundle bundle)
 		{
-			var view = _view.CreateStatsView();
-			view.SetLabel(label);
-			view.SetValue(value);
+			bundle.OnBundleOutOfStock -= OnBundleOutOfStock;
+			bundle.OnBuyButtonClicked -= OnBuyBundle;
 		}
 	}
 }

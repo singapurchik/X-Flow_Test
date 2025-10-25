@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentLocationKey: {fileID: 11400000, guid: 030f73785b3f64f488cfa5cd57c9db44, type: 2}
-  _startLocation: 3
+  _startLocation: 0
 --- !u!4 &890864138
 Transform:
   m_ObjectHideFlags: 0

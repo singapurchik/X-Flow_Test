@@ -1,6 +1,6 @@
 using System;
 
-namespace Shop.VIP
+namespace Shop
 {
 	public interface IVIPInfo : IHasDisplayName
 	{

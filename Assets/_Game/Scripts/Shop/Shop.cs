@@ -1,20 +1,22 @@
-using Shop.VIP;
+using System.Collections.Generic;
 using Zenject;
 
 namespace Shop
 {
 	public sealed class Shop : IShopEntryPoint
 	{
+		[Inject] private IReadOnlyList<BundleData> _bundlesData;
 		[Inject] private ILocationInfo _location;
 		[Inject] private IHealthInfo _health;
 		[Inject] private IGoldInfo _gold;
 		[Inject] private IShopView _view;
 		[Inject] private IVIPInfo _vip;
 
-		public void Initialize(int bundlesCount)
+		public void Initialize()
 		{
-			for (var i = 0; i < bundlesCount; i++)
-				_view.CreateBundle();
+			if (_bundlesData != null && _bundlesData.Count > 0)
+				for (var i = 0; i < _bundlesData.Count; i++)
+					_view.CreateBundle(_bundlesData[i]);
 
 			CreateStatsViews();
 		}

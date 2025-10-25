@@ -2,7 +2,7 @@ using Zenject;
 using System;
 using Core;
 
-namespace Shop.VIP
+namespace Shop
 {
 	public class VIPInfoProxy : IVIPInfo
 	{

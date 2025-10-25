@@ -11,10 +11,11 @@ namespace Shop
 		[Inject] private StatsViewsPool _statsPool;
 		[Inject] private BundlesPool _bundlesPool;
 
-		public void CreateBundle()
+		public void CreateBundle(BundleData data)
 		{
-			var statsView = _bundlesPool.Get();
-			statsView.transform.SetParent(_bundlesContainer, false);
+			var bundle = _bundlesPool.Get();
+			bundle.transform.SetParent(_bundlesContainer, false);
+			bundle.Initialize(data);
 		}
 
 		public IStatsView CreateStatsView()

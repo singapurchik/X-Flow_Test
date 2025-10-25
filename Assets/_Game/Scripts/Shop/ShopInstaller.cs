@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Core;
-using Shop.VIP;
 
 namespace Shop
 {
@@ -11,6 +11,7 @@ namespace Shop
 		[SerializeField] private BundlesPool _bundlesPool;
 		[SerializeField] private ShopEntry _entry;
 		[SerializeField] private ShopView _view;
+		[SerializeField] private List<BundleData> _bundles = new ();
 		
 		[Header("Assign the SAME keys used by Health")]
 		[SerializeField] private PlayerDataKey _healthCurrentKey;
@@ -27,6 +28,10 @@ namespace Shop
 
 		public override void InstallBindings()
 		{
+			var shop = new Shop();
+			
+			Container.Bind<IShopEntryPoint>().FromInstance(shop).WhenInjectedIntoInstance(_entry);
+			
 			Container.Bind<IHealthInfo>()
 				.To<HealthInfoProxy>()
 				.AsSingle()
@@ -48,17 +53,23 @@ namespace Shop
 				.WithArguments(_vipRemainingTime);
 			
 			Container.Bind<IShopView>()
-				.FromInstance(_view);
+				.FromInstance(_view)
+				.WhenInjectedIntoInstance(shop);
 			
 			Container.BindInstance(_statsViewsPool)
 				.WhenInjectedIntoInstance(_view);
 			
 			Container.BindInstance(_bundlesPool)
 				.WhenInjectedIntoInstance(_view);
+			
+			Container.Bind<IReadOnlyList<BundleData>>()
+				.FromInstance(_bundles)
+				.WhenInjectedIntoInstance(shop);
 
-			Container.BindInterfacesAndSelfTo<Shop>()
-				.AsSingle()
-				.NonLazy();
+			Container.Bind<BundlePhraseFormatter>()
+				.WhenInjectedInto<Bundle>();
+			
+			Container.Inject(shop);
 		}
 	}
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8147532081267126602}
   - component: {fileID: 1113187192510871174}
   m_Layer: 0
-  m_Name: Name Text
+  m_Name: Costs Rewards Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -716,3 +716,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26714faa510e4275af0ccf06b5f78f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _costsRewardsText: {fileID: 1113187192510871174}

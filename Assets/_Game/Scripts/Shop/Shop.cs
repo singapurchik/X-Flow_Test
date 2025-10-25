@@ -1,12 +1,15 @@
+using Shop.VIP;
 using Zenject;
 
 namespace Shop
 {
 	public sealed class Shop : IShopEntryPoint
 	{
+		[Inject] private ILocationInfo _location;
 		[Inject] private IHealthInfo _health;
 		[Inject] private IGoldInfo _gold;
 		[Inject] private IShopView _view;
+		[Inject] private IVIPInfo _vip;
 
 		public void Initialize(int bundlesCount)
 		{
@@ -18,8 +21,10 @@ namespace Shop
 
 		private void CreateStatsViews()
 		{
-			CreateStatsView(_health.Name, _health.CurrentHealth.ToString());
-			CreateStatsView(_gold.Name, _gold.CurrentGold.ToString());
+			CreateStatsView(_health.DisplayName, _health.CurrentHealth.ToString());
+			CreateStatsView(_location.DisplayName, _location.CurrentLocation);
+			CreateStatsView(_gold.DisplayName, _gold.CurrentGold.ToString());
+			CreateStatsView(_vip.DisplayName, _vip.RemainingSeconds + " sec");
 		}
 
 		private void CreateStatsView(string label, string value)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using Core;
+using Shop.VIP;
 
 namespace Shop
 {
@@ -17,6 +18,12 @@ namespace Shop
 		
 		[Header("Assign the SAME keys used by Gold")]
 		[SerializeField] private PlayerDataKey _goldCurrentKey;
+		
+		[Header("Assign the SAME keys used by Location")]
+		[SerializeField] private PlayerDataKey _currentLocationKey;
+		
+		[Header("Assign the SAME keys used by VIP")]
+		[SerializeField] private PlayerDataKey _vipRemainingTime;
 
 		public override void InstallBindings()
 		{
@@ -29,6 +36,16 @@ namespace Shop
 				.To<GoldInfoProxy>()
 				.AsSingle()
 				.WithArguments(_goldCurrentKey);
+			
+			Container.Bind<ILocationInfo>()
+				.To<LocationInfoProxy>()
+				.AsSingle()
+				.WithArguments(_currentLocationKey);
+			
+			Container.Bind<IVIPInfo>()
+				.To<VIPInfoProxy>()
+				.AsSingle()
+				.WithArguments(_vipRemainingTime);
 			
 			Container.Bind<IShopView>()
 				.FromInstance(_view);

@@ -10,7 +10,7 @@ namespace Shop
 		private readonly PlayerDataKey _currentGoldKey;
 		
 		public int CurrentGold => _playerDataInfo.GetInt(_currentGoldKey);
-		public string Name => "Gold";
+		public string DisplayName => "Gold";
 
 		public GoldInfoProxy(PlayerDataKey currentGoldKey)
 		{

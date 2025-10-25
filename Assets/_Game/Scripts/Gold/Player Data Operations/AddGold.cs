@@ -11,7 +11,8 @@ namespace Gold
 
 		public override bool IsCanApply(IPlayerDataInfo data) => true;
 		
-		public override void Apply(PlayerData data) => data.SetInt(_currentGoldKey, data.GetInt(_currentGoldKey) + _amount);
+		public override void Apply(PlayerData data)
+			=> data.SetInt(_currentGoldKey, data.GetInt(_currentGoldKey) + _amount);
 		
 #if UNITY_EDITOR
 		private void OnValidate()

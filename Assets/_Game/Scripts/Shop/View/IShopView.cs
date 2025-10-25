@@ -4,8 +4,6 @@ namespace Shop
 	{
 		public Bundle CreateBundle(BundleData data);
 
-		public IStatsView CreateStatsView();
-
 		public void CreateStatsViews();
 		public void UpdateView();
 	}

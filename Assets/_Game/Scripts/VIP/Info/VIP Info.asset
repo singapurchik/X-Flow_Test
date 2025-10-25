@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb537efd5ce145a78f77fc525b44cfba, type: 3}
-  m_Name: Location Display Name
+  m_Script: {fileID: 11500000, guid: 3b10b7b7e6b44d099a719bb8d9a91eac, type: 3}
+  m_Name: VIP Info
   m_EditorClassIdentifier: 
-  _displayName: Location
+  _displayName: VIP
+  _vipRemainingTime: {fileID: 11400000, guid: 4eeb71cf201dd5f4480bf9c2aa91d691, type: 2}

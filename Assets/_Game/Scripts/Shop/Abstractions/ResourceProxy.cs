@@ -4,11 +4,11 @@ namespace Shop
 {
 	public abstract class ResourceProxy : IHasDisplayName
 	{
-		private ResourceDescriptor _descriptor;
+		private PlayerDataValueInfo _descriptor;
 
 		public string DisplayName => _descriptor.DisplayName;
 
-		public ResourceProxy(ResourceDescriptor descriptor)
+		public ResourceProxy(PlayerDataValueInfo descriptor)
 		{
 			_descriptor = descriptor;
 		}

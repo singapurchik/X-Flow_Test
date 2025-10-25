@@ -2,6 +2,6 @@ namespace Core
 {
 	public interface IPlayerDataOperationInfo
 	{
-		public ResourceDescriptor Descriptor { get; }
+		public PlayerDataValueInfo Info { get; }
 	}
 }

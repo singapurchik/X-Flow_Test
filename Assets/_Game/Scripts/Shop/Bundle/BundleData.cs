@@ -22,23 +22,27 @@ namespace Shop
 
 		private static void MakeSlotsEmptyAndPreventDuplicates<T>(List<T> list) where T : ScriptableObject
 		{
-			if (list == null || list.Count == 0) return;
-
-			var seen = new HashSet<int>();
-			for (int i = 0; i < list.Count; i++)
+			if (list != null && list.Count > 0)
 			{
-				var so = list[i];
-
-				if (!so) continue;
-
-				int id = so.GetInstanceID();
-				if (!seen.Add(id))
+				var seen = new HashSet<int>();
+				
+				for (int i = 0; i < list.Count; i++)
 				{
-					Debug.Log($"Duplicate asset prevented at index {i}. Slot cleared.");
-					list[i] = null;
-				}
+					var scriptableObject = list[i];
+
+					if (scriptableObject)
+					{
+						int id = scriptableObject.GetInstanceID();
+						if (!seen.Add(id))
+						{
+							Debug.Log($"Duplicate asset prevented at index {i}. Slot cleared.");
+							list[i] = null;
+						}	
+					}
+				}	
 			}
 		}
+
 #endif
 	}
 }

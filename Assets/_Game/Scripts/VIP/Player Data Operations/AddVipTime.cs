@@ -7,7 +7,7 @@ namespace VIP
 	[CreateAssetMenu(fileName = "Add VIP Time", menuName = "VIP/Operations/Add VIP Time")]
 	public sealed class AddVipTime : ProvideOperation
 	{
-		[SerializeField] private PlayerDataKey _vipUntilTicksKey;
+		[SerializeField] private PlayerDataKey _vipRemainingTimeKey;
 		[Min(1)][SerializeField] private int _seconds = 30;
 
 		public override bool IsCanApply(IPlayerDataInfo data) => true;
@@ -17,7 +17,7 @@ namespace VIP
 			var nowTicks = DateTime.UtcNow.Ticks;
 			var deltaTicks = _seconds * TimeSpan.TicksPerSecond;
 
-			var timeString = data.GetString(_vipUntilTicksKey, "0");
+			var timeString = data.GetString(_vipRemainingTimeKey, "0");
 
 			if (!long.TryParse(timeString, out var currentUntil) || currentUntil < nowTicks)
 				currentUntil = nowTicks;
@@ -29,7 +29,7 @@ namespace VIP
 			else
 				newUntil = currentUntil + deltaTicks;
 
-			data.SetString(_vipUntilTicksKey, newUntil.ToString());
+			data.SetString(_vipRemainingTimeKey, newUntil.ToString());
 		}
 
 #if UNITY_EDITOR

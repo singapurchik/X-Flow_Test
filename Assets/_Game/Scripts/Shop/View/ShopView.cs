@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using Core;
 
 namespace Shop
 {
@@ -9,30 +10,28 @@ namespace Shop
 		[SerializeField] private RectTransform _bundlesContainer;
 		[SerializeField] private RectTransform _statsViewContainer;
 
+		[Inject] private IReadOnlyList<PlayerDataValueInfo> _dataValueInfos;
+		[Inject] private IPlayerDataInfo _dataInfo;
 		[Inject] private StatsViewsPool _statsPool;
 		[Inject] private BundlesPool _bundlesPool;
-		[Inject] private ILocationInfo _location;
-		[Inject] private IHealthInfo _health;
-		[Inject] private IGoldInfo _gold;
-		[Inject] private IShopView _view;
-		[Inject] private IVIPInfo _vip;
 		
-		private readonly HashSet<StatsView> _statsView = new (10);
+		private readonly Dictionary<PlayerDataValueInfo, StatsView> _statsView = new (10);
 		private readonly HashSet<Bundle> _bundles = new (10);
 		
 		public void CreateStatsViews()
 		{
-			CreateStatsView(_health.DisplayName, _health.CurrentHealth.ToString());
-			CreateStatsView(_location.DisplayName, _location.CurrentLocation);
-			CreateStatsView(_gold.DisplayName, _gold.CurrentGold.ToString());
-			CreateStatsView(_vip.DisplayName, _vip.RemainingSeconds + " sec");
+			foreach (var valueInfo in _dataValueInfos)
+				if (valueInfo != null)
+					CreateStatsView(valueInfo);
 		}
 		
-		private void CreateStatsView(string label, string value)
+		private void CreateStatsView(PlayerDataValueInfo info)
 		{
-			var view = _view.CreateStatsView();
-			view.SetLabel(label);
-			view.SetValue(value);
+			var view = _statsPool.Get();
+			view.transform.SetParent(_statsViewContainer, false);
+			view.SetLabel(info.DisplayName);
+			view.SetValue(info.ReadCurrentValueAsString(_dataInfo));
+			_statsView.Add(info, view);
 		}
 
 		public Bundle CreateBundle(BundleData data)
@@ -43,19 +42,14 @@ namespace Shop
 			_bundles.Add(bundle);
 			return bundle;
 		}
-
-		public IStatsView CreateStatsView()
-		{
-			var statsView = _statsPool.Get();
-			statsView.transform.SetParent(_statsViewContainer, false);
-			_statsView.Add(statsView);
-			return statsView;
-		}
 		
 		public void UpdateView()
 		{
 			foreach (var bundle in _bundles)
 				bundle.UpdateButtonState();
+
+			foreach (var statsView in _statsView)
+				statsView.Value.SetValue(statsView.Key.ReadCurrentValueAsString(_dataInfo));
 		}
 	}
 }

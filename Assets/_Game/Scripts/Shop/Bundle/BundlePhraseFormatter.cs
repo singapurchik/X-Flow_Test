@@ -41,7 +41,7 @@ namespace Shop
 				int count = 0;
 				for (int i = 0; i < list.Count; i++)
 				{
-					var d = list[i]?.Descriptor;
+					var d = list[i]?.Info;
 					if (d != null && !string.IsNullOrEmpty(d.DisplayName))
 						count++;
 				}
@@ -57,7 +57,7 @@ namespace Shop
 			
 			for (int i = 0; i < list.Count; i++)
 			{
-				var name = list[i]?.Descriptor?.DisplayName;
+				var name = list[i]?.Info?.DisplayName;
 				
 				if (!string.IsNullOrEmpty(name))
 				{

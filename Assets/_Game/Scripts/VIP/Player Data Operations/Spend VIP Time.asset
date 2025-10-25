@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437d3716ca5e475ebfe6c77e39c2e900, type: 3}
   m_Name: Spend VIP Time
   m_EditorClassIdentifier: 
-  _descriptor: {fileID: 11400000, guid: 4182833152f579e4b9b466ec67b19385, type: 2}
+  _info: {fileID: 11400000, guid: 54a91341741dd3142b0f5e3aa3e4c4a4, type: 2}
   _vipRemainingTimeKey: {fileID: 11400000, guid: 4eeb71cf201dd5f4480bf9c2aa91d691, type: 2}
   _seconds: 10

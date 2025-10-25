@@ -12,53 +12,14 @@ namespace Shop
 		[SerializeField] private ShopEntry _entry;
 		[SerializeField] private ShopView _view;
 		[SerializeField] private List<BundleData> _bundles = new ();
-		
-		[Header("Assign the SAME keys used by Health")]
-		[SerializeField] private PlayerDataKey _healthCurrentKey;
-		[SerializeField] private PlayerDataKey _healthMaxKey;
-		[Space(5)]
-		[SerializeField] private ResourceDescriptor _healthDescriptor;
-		
-		[Header("Assign the SAME keys used by Gold")]
-		[SerializeField] private PlayerDataKey _goldCurrentKey;
-		[Space(5)]
-		[SerializeField] private ResourceDescriptor _goldDescriptor;
-		
-		[Header("Assign the SAME keys used by Location")]
-		[SerializeField] private PlayerDataKey _currentLocationKey;
-		[Space(5)]
-		[SerializeField] private ResourceDescriptor _locationDescriptor;
-		
-		[Header("Assign the SAME keys used by VIP")]
-		[SerializeField] private PlayerDataKey _vipRemainingTime;
-		[Space(5)]
-		[SerializeField] private ResourceDescriptor _vipDescriptor;
+		[SerializeField] private List<PlayerDataValueInfo> _dataValueInfos = new ();
 
 		public override void InstallBindings()
 		{
 			var shop = new Shop();
 			
+			Container.Bind<IReadOnlyList<PlayerDataValueInfo>>().FromInstance(_dataValueInfos).AsSingle();
 			Container.Bind<IShopEntryPoint>().FromInstance(shop).WhenInjectedIntoInstance(_entry);
-			
-			Container.Bind<IHealthInfo>()
-				.To<HealthInfoProxy>()
-				.AsSingle()
-				.WithArguments(_healthDescriptor, _healthCurrentKey, _healthMaxKey);
-			
-			Container.Bind<IGoldInfo>()
-				.To<GoldInfoProxy>()
-				.AsSingle()
-				.WithArguments(_goldDescriptor, _goldCurrentKey);
-			
-			Container.Bind<ILocationInfo>()
-				.To<LocationInfoProxy>()
-				.AsSingle()
-				.WithArguments(_locationDescriptor, _currentLocationKey);
-			
-			Container.Bind<IVIPInfo>()
-				.To<VIPInfoProxy>()
-				.AsSingle()
-				.WithArguments(_vipDescriptor, _vipRemainingTime);
 			
 			Container.Bind<IShopView>()
 				.FromInstance(_view)
@@ -79,5 +40,35 @@ namespace Shop
 			
 			Container.Inject(shop);
 		}
+		
+#if UNITY_EDITOR
+		private void OnValidate()
+		{
+			MakeSlotsEmptyAndPreventDuplicates(_dataValueInfos);
+		}
+
+		private static void MakeSlotsEmptyAndPreventDuplicates<T>(List<T> list) where T : ScriptableObject
+		{
+			if (list != null && list.Count > 0)
+			{
+				var seen = new HashSet<int>();
+				
+				for (int i = 0; i < list.Count; i++)
+				{
+					var scriptableObject = list[i];
+
+					if (scriptableObject)
+					{
+						int id = scriptableObject.GetInstanceID();
+						if (!seen.Add(id))
+						{
+							Debug.Log($"Duplicate asset prevented at index {i}. Slot cleared.");
+							list[i] = null;
+						}	
+					}
+				}	
+			}
+		}
+#endif
 	}
 }

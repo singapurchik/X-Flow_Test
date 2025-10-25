@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb537efd5ce145a78f77fc525b44cfba, type: 3}
-  m_Name: VIP Display Name
+  m_Script: {fileID: 11500000, guid: 53d5023c5124406193a7c629f4ae6234, type: 3}
+  m_Name: Gold Info
   m_EditorClassIdentifier: 
-  _displayName: VIP
+  _displayName: Gold
+  _currentGoldKey: {fileID: 11400000, guid: 9a97634987b58f74aa826bc358e556cb, type: 2}

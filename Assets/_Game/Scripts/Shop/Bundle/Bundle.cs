@@ -14,9 +14,7 @@ namespace Shop
 		[Inject] private BundlePhraseFormatter _formatter;
 		[Inject] private IPlayerDataInfo _playerData;
 
-		public BundleData _currentData;
-
-		private int _currentAmount;
+		private BundleData _currentData;
 
 		public event Action<BundleData> OnBuyButtonClicked;
 		public event Action<Bundle> OnBundleOutOfStock;
@@ -30,7 +28,6 @@ namespace Shop
 				_formatter.Build(new CostOperationsView(data.Costs), 
 					new RewardOperationsView(data.Rewards));
 
-			_currentAmount = _currentData.Amount;
 			UpdateButtonState();
 		}
 

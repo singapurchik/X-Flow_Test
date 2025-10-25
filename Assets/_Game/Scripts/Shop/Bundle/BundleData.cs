@@ -11,8 +11,6 @@ namespace Shop
 	[CreateAssetMenu(fileName = "Bundle Data", menuName = "Shop/Bundle Data")]
 	public class BundleData : ScriptableObject
 	{
-		[SerializeField] private int _amount = 3;
-		
 		[Header("Costs")]
 		[SerializeField] private List<CostEntry> _costs = new();
 
@@ -21,8 +19,6 @@ namespace Shop
 
 		public IReadOnlyList<RewardEntry> Rewards => _rewards;
 		public IReadOnlyList<CostEntry> Costs => _costs;
-		
-		public int Amount => _amount;
 		
 #if UNITY_EDITOR
         private void OnValidate()

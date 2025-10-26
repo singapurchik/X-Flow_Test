@@ -156,6 +156,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coroutineRunner: {fileID: 1147584535690081651}
+  _playerDataValues:
+  - {fileID: 11400000, guid: 575efc91fd05b47488e865e9269b1c81, type: 2}
+  - {fileID: 11400000, guid: 84261db454d3e434f8d5234e55c8d16c, type: 2}
+  - {fileID: 11400000, guid: 81a8131b3186d9f41bf1045f49c7bd24, type: 2}
+  - {fileID: 11400000, guid: 3b0eb11521f3a2c4598ff186d5b418f5, type: 2}
 --- !u!1 &7369242316804489874
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System;
+using UnityEngine;
 
 namespace Core
 {
@@ -10,38 +10,24 @@ namespace Core
 		private readonly Dictionary<string, bool> _bools = new(64);
 		private readonly Dictionary<string, int> _ints = new(64);
 
-		public static event Action<PlayerDataKey> OnValueChanged;
-		
 		public int GetInt(PlayerDataKey key, int def = 0) => _ints.GetValueOrDefault(key.Id, def);
 
-		public void SetInt(PlayerDataKey key, int value)
-		{
-			_ints[key.Id] = value;
-			OnValueChanged?.Invoke(key);
-		}
+		public void SetInt(PlayerDataKey key, int value) => _ints[key.Id] = value;
 
 		public float GetFloat(PlayerDataKey key, float def = 0f) => _floats.GetValueOrDefault(key.Id, def);
 
-		public void SetFloat(PlayerDataKey key, float v)
-		{
-			_floats[key.Id] = v;
-			OnValueChanged?.Invoke(key);
-		}
+		public void SetFloat(PlayerDataKey key, float v) => _floats[key.Id] = v;
 
 		public bool GetBool(PlayerDataKey key, bool def = false) => _bools.TryGetValue(key.Id, out var v) && v || def;
 
-		public void SetBool(PlayerDataKey key, bool v)
+		public void SetBool(PlayerDataKey key, bool v) => _bools[key.Id] = v;
+
+		public string GetString(PlayerDataKey key, string def = "")
 		{
-			_bools[key.Id] = v;
-			OnValueChanged?.Invoke(key);
+			Debug.Log($"key: {key.name} id: {key.Id} value: {_strings.GetValueOrDefault(key.Id, def)}");
+			return _strings.GetValueOrDefault(key.Id, def);
 		}
 
-		public string GetString(PlayerDataKey key, string def = "") => _strings.GetValueOrDefault(key.Id, def);
-
-		public void SetString(PlayerDataKey key, string v)
-		{
-			_strings[key.Id] = v;
-			OnValueChanged?.Invoke(key);
-		}
+		public void SetString(PlayerDataKey key, string v) => _strings[key.Id] = v;
 	}
 }

@@ -18,7 +18,7 @@ namespace Shop
 			_stringBuilder.Clear();
 
 			var rewardsCount = CountValid(rewards);
-			var costsCount   = CountValid(costs);
+			var costsCount = CountValid(costs);
 
 			if (rewardsCount > 0)
 				AppendJoinedWithAnd(_stringBuilder, rewards, rewardsCount);
@@ -44,8 +44,10 @@ namespace Shop
 					if (d != null && !string.IsNullOrEmpty(d.DisplayName))
 						count++;
 				}
-				return count;	
+
+				return count;
 			}
+
 			return 0;
 		}
 
@@ -53,11 +55,11 @@ namespace Shop
 			IReadOnlyList<IPlayerDataOperationInfo> list, int totalValid)
 		{
 			int appended = 0;
-			
+
 			for (int i = 0; i < list.Count; i++)
 			{
 				var name = list[i]?.Info?.DisplayName;
-				
+
 				if (!string.IsNullOrEmpty(name))
 				{
 					if (appended > 0)
@@ -65,7 +67,7 @@ namespace Shop
 
 					stringBuilder.Append(name);
 					appended++;
-					if (appended == totalValid) break;	
+					if (appended == totalValid) break;
 				}
 			}
 		}
@@ -75,16 +77,16 @@ namespace Shop
 			if (stringBuilder.Length > 0)
 			{
 				int first = 0;
-				
-				while (first < stringBuilder.Length && char.IsWhiteSpace(stringBuilder[first])) 
+
+				while (first < stringBuilder.Length && char.IsWhiteSpace(stringBuilder[first]))
 					first++;
-				
+
 				if (first < stringBuilder.Length)
 				{
 					stringBuilder[first] = char.ToUpperInvariant(stringBuilder[first]);
 
 					for (int i = first + 1; i < stringBuilder.Length; i++)
-						stringBuilder[i] = char.ToLowerInvariant(stringBuilder[i]);		
+						stringBuilder[i] = char.ToLowerInvariant(stringBuilder[i]);
 				}
 			}
 		}

@@ -4,9 +4,7 @@ namespace Core
 {
 	public abstract class PlayerDataOperation : ScriptableObject, IPlayerDataOperationInfo
 	{
-		[SerializeField] private PlayerDataValueInfo _info;
-
-		public PlayerDataValueInfo Info => _info;
+		public abstract PlayerDataValueInfo Info { get; }
 		
 		public abstract bool IsCanApply(IPlayerDataInfo data);
 		

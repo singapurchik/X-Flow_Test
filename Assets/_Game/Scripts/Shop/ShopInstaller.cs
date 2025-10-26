@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Core.Utils;
 using Zenject;
 using Core;
 
@@ -71,24 +72,7 @@ namespace Shop
 #if UNITY_EDITOR
 		private void OnValidate()
 		{
-			MakeSlotsEmptyAndPreventDuplicates(_dataValueInfos);
-		}
-
-		private static void MakeSlotsEmptyAndPreventDuplicates<T>(List<T> list) where T : ScriptableObject
-		{
-			if (list == null || list.Count == 0) return;
-			var seen = new HashSet<int>();
-			for (int i = 0; i < list.Count; i++)
-			{
-				var so = list[i];
-				if (!so) continue;
-				int id = so.GetInstanceID();
-				if (!seen.Add(id))
-				{
-					Debug.Log($"Duplicate asset prevented at index {i}. Slot cleared.");
-					list[i] = null;
-				}
-			}
+			_dataValueInfos.MakeSlotsEmptyAndPreventDuplicates();
 		}
 #endif
 	}

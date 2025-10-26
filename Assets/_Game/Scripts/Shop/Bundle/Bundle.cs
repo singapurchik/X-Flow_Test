@@ -37,7 +37,6 @@ namespace Shop
 
 		public void UpdateButtonState()
 		{
-			Debug.Log("UpdateButtonState");
 			if (CanPay(_currentData, _playerData))
 				_buyButton.Enable();
 			else

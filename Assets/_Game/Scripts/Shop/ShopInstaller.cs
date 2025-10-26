@@ -9,13 +9,16 @@ namespace Shop
 	public sealed class ShopInstaller : MonoInstaller
 	{
 		[Header("Common")]
-		[SerializeField] private StatsViewsPool _statsViewsPool;
-		[SerializeField] private BundlesPool _bundlesPool;
 		[SerializeField] private ShopEntry _entry;
 		[SerializeField] private ShopView _view;
 		[SerializeField] private List<PlayerDataValueInfo> _dataValueInfos = new();
 
+		[Header("Stats")]
+		[SerializeField] private StatsViewsPool _statsViewsPool;
+		[SerializeField] private List<StatPlusBinding> _statPlusBindings = new ();
+		
 		[Header("Bundles")]
+		[SerializeField] private BundlesPool _bundlesPool;
 		[SerializeField] private List<BundleData> _bundles = new();
 		[SerializeField] private SelectedBundleDataReference _selectedReference;
 		[SerializeField] private BundlesSourceMode _mode = BundlesSourceMode.FullList;
@@ -23,7 +26,7 @@ namespace Shop
 		[Header("Scenes")]
 		[SerializeField] private SceneLoadingData _bundleDetailedScene;
 		[SerializeField] private SceneLoadingData _shopScene;
-
+		
 		public override void InstallBindings()
 		{
 			var scenesLoader = new ShopScenesLoader(_bundleDetailedScene, _shopScene);
@@ -53,6 +56,7 @@ namespace Shop
 					break;
 			}
 
+			Container.BindInstance((IReadOnlyList<StatPlusBinding>)_statPlusBindings).WhenInjectedIntoInstance(shop);
 			Container.Bind<IShopScenesLoader>().FromInstance(scenesLoader).WhenInjectedIntoInstance(shop);
 			Container.Bind<IReadOnlyList<PlayerDataValueInfo>>().FromInstance(_dataValueInfos).AsSingle();
 

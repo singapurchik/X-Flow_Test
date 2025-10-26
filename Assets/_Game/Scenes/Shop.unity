@@ -299,6 +299,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -38.25035
       objectReference: {fileID: 0}
+    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
+      propertyPath: 'managedReferences[-2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
+      propertyPath: _statPlusBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
+      propertyPath: _statPlusBindings.Array.data[0].Info
+      value: 
+      objectReference: {fileID: 11400000, guid: 856acb804457dd240884b433c729d3b4, type: 2}
+    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
+      propertyPath: _statPlusBindings.Array.data[0].Param
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
+      propertyPath: _statPlusBindings.Array.data[0].Operation
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c891bac1b6139e4e88fee27bb786a1d, type: 2}
     - target: {fileID: 5727285946852102205, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

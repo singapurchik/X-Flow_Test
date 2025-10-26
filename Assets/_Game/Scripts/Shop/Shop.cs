@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using Zenject;
 using Core;
@@ -7,15 +8,29 @@ namespace Shop
 	public sealed class Shop : IShopEntryPoint
 	{
 		[Inject] private SelectedBundleDataReference _selectedBundleDataReference;
+		[Inject] private IReadOnlyList<StatPlusBinding> _plusBindings;
 		[Inject] private ICoroutineRunner _coroutineRunner;
 		[Inject] private IShopScenesLoader _scenesLoader;
 		[Inject] private IBundleSource _bundleSource;
 		[Inject] private PlayerData _playerData;
 		[Inject] private Backend _backend;
 		[Inject] private IShopView _view;
+		
+		private Dictionary<PlayerDataValueInfo, StatPlusBinding> _plusMap;
 
 		public void Initialize()
 		{
+			_plusMap = new Dictionary<PlayerDataValueInfo, StatPlusBinding>(_plusBindings?.Count ?? 0);
+			if (_plusBindings != null)
+			{
+				for (int i = 0; i < _plusBindings.Count; i++)
+				{
+					var b = _plusBindings[i];
+					if (b.Info && b.Operation)
+						_plusMap[b.Info] = b;
+				}
+			}
+			
 			var bundles = _bundleSource.GetBundles();
 			if (bundles != null && bundles.Count > 0)
 			{
@@ -30,8 +45,27 @@ namespace Shop
 
 			_view.CreateStatsViews();
 			_view.OnCloseInfoButtonClicked += OnCloseBundleInfoButtonClicked;
+			_view.OnPlusButtonClicked += OnStatPlusClicked;
 		}
+		
+		private void OnStatPlusClicked(PlayerDataValueInfo info)
+		{
+			if (!_plusMap.TryGetValue(info, out var bind) || bind.Operation == null)
+				return;
 
+			ApplyOperation(bind);
+			_view.UpdateView();
+		}
+		
+		
+		private void ApplyOperation(StatPlusBinding b)
+		{
+			if (b.Operation is IOperationWithParameter withParam && b.Param != null && withParam.IsSupports(b.Param))
+				withParam.Apply(_playerData, b.Param);
+			else
+				b.Operation.Apply(_playerData);
+		}
+		
 		private void OnCloseBundleInfoButtonClicked()
 		{
 			_view.DisableInput();

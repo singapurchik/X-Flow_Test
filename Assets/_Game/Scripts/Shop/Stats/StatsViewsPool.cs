@@ -6,12 +6,12 @@ namespace Shop
 	{
 		protected override void InitializeObject(StatsView view)
 		{
-			view.OnHide += ReturnToPool;
+			view.OnRemoved += ReturnToPool;
 		}
 
 		protected override void CleanupObject(StatsView view)
 		{
-			view.OnHide -= ReturnToPool;
+			view.OnRemoved -= ReturnToPool;
 		}
 	}
 }

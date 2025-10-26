@@ -1,4 +1,5 @@
 using System;
+using Core;
 
 namespace Shop
 {
@@ -11,6 +12,7 @@ namespace Shop
 		public void EnableInput();
 		public void UpdateView();
 		
+		public event Action<PlayerDataValueInfo> OnPlusButtonClicked;
 		public event Action OnCloseInfoButtonClicked;
 	}
 }

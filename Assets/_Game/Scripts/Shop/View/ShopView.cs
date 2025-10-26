@@ -19,9 +19,10 @@ namespace Shop
 		[Inject] private StatsViewsPool _statsPool;
 		[Inject] private BundlesPool _bundlesPool;
 		
-		private readonly Dictionary<PlayerDataValueInfo, StatsView> _statsView = new (10);
+		private readonly Dictionary<StatsView, PlayerDataValueInfo> _statsViewInfoPair = new (10);
 		private readonly HashSet<Bundle> _bundles = new (10);
 		
+		public event Action<PlayerDataValueInfo> OnPlusButtonClicked;
 		public event Action OnCloseInfoButtonClicked;
 
 		private void OnEnable()
@@ -59,7 +60,8 @@ namespace Shop
 			view.transform.SetParent(_statsViewContainer, false);
 			view.SetLabel(info.DisplayName);
 			view.SetValue(info.ReadCurrentValueAsString(_dataInfo));
-			_statsView.Add(info, view);
+			_statsViewInfoPair.Add(view, info);
+			view.OnPlusButtonClicked += InvokeOnStatPlusClicked;
 		}
 
 		public Bundle CreateBundle(BundleData data)
@@ -76,10 +78,13 @@ namespace Shop
 			foreach (var bundle in _bundles)
 				bundle.UpdateButtonState();
 
-			foreach (var statsView in _statsView)
-				statsView.Value.SetValue(statsView.Key.ReadCurrentValueAsString(_dataInfo));
+			foreach (var statsView in _statsViewInfoPair)
+				statsView.Key.SetValue(statsView.Value.ReadCurrentValueAsString(_dataInfo));
 		}
-		
+
+
+		private void InvokeOnStatPlusClicked(StatsView view) => OnPlusButtonClicked?.Invoke(_statsViewInfoPair[view]);
+
 		private void InvokeOnCloseInfoButtonClicked() => OnCloseInfoButtonClicked?.Invoke();
 	}
 }

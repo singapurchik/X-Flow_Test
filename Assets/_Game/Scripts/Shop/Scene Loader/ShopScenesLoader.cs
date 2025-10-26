@@ -13,7 +13,7 @@ namespace Shop
 			_shop = shop;
 		}
 		
-		public void LoadBindleDetailedScene() => LoadScene(_bundleDetailed);
+		public void LoadBundleDetailedScene() => LoadScene(_bundleDetailed);
 		
 		public void LoadShopScene() => LoadScene(_shop);
 	}

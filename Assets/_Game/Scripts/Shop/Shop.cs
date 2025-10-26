@@ -35,7 +35,7 @@ namespace Shop
 		{
 			_view.DisableInput();
 			_selectedBundleDataReference.Set(data);
-			_scenesLoader.LoadBindleDetailedScene();
+			_scenesLoader.LoadBundleDetailedScene();
 		}
 
 		private void OnBundleOutOfStock(Bundle bundle)

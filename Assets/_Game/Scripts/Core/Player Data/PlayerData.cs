@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Core
 {
@@ -22,11 +21,7 @@ namespace Core
 
 		public void SetBool(PlayerDataKey key, bool v) => _bools[key.Id] = v;
 
-		public string GetString(PlayerDataKey key, string def = "")
-		{
-			Debug.Log($"key: {key.name} id: {key.Id} value: {_strings.GetValueOrDefault(key.Id, def)}");
-			return _strings.GetValueOrDefault(key.Id, def);
-		}
+		public string GetString(PlayerDataKey key, string def = "") => _strings.GetValueOrDefault(key.Id, def);
 
 		public void SetString(PlayerDataKey key, string v) => _strings[key.Id] = v;
 	}

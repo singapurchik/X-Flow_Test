@@ -1,20 +1,13 @@
 using UnityEngine;
+using System;
 
 namespace Core
 {
-	[CreateAssetMenu(menuName = "Core/Player Data Key", fileName = "Player Data Key")]
-	public sealed class PlayerDataKey : ScriptableObject
+	[Serializable]
+	public sealed class PlayerDataKey
 	{
-		[HideInInspector] [SerializeField] private string _id;
+		[HideInInspector] [SerializeField] private string _id = Guid.NewGuid().ToString("N");
 		
 		public string Id => _id;
-
-#if UNITY_EDITOR
-		private void OnValidate()
-		{
-			if (string.IsNullOrWhiteSpace(_id))
-				_id = System.Guid.NewGuid().ToString("N");
-		}
-#endif
 	}
 }

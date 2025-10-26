@@ -12,6 +12,7 @@ namespace Location
 		{
 			var current = data.GetString(_currentLocationKey, string.Empty);
 			var defaultLocation = default(LocationType).ToString();
+			Debug.Log(current != defaultLocation);
 			return current != defaultLocation;
 		}
 

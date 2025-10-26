@@ -17,20 +17,19 @@ namespace Shop
 		{
 			_stringBuilder.Clear();
 
-			int costsCount = CountValid(costs);
-			int rewardsCount = CountValid(rewards);
-
-			if (costsCount > 0)
-				AppendJoinedWithAnd(_stringBuilder, costs, costsCount);
-
-			if (rewardsCount > 0 && costsCount > 0)
-				_stringBuilder.Append(FOR_SEPARATOR);
+			var rewardsCount = CountValid(rewards);
+			var costsCount   = CountValid(costs);
 
 			if (rewardsCount > 0)
 				AppendJoinedWithAnd(_stringBuilder, rewards, rewardsCount);
 
-			NormalizeCasing(_stringBuilder);
+			if (rewardsCount > 0 && costsCount > 0)
+				_stringBuilder.Append(FOR_SEPARATOR);
 
+			if (costsCount > 0)
+				AppendJoinedWithAnd(_stringBuilder, costs, costsCount);
+
+			NormalizeCasing(_stringBuilder);
 			return _stringBuilder.ToString();
 		}
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 using Core;
 
 namespace VIP
@@ -9,28 +8,29 @@ namespace VIP
 	{
 		[SerializeField] private VIPInfo _info;
 		[Min(0)] [SerializeField] private int _startDurationSeconds = 30;
-		
-		public VIPInfo Info => _info;
+
+		public override PlayerDataValueInfo Info => _info;
 
 		public override void Initialize(PlayerData data)
 		{
-			var startingTime = TimeSpan.FromSeconds(_startDurationSeconds);
-			
-			if (startingTime > TimeSpan.Zero)
-			{
-				var until = DateTime.UtcNow + startingTime;
-				data.SetString(_info.VipRemainingTimeKey, until.Ticks.ToString());
-			}
+			if (_startDurationSeconds <= 0) return;
+
+			var now = VipTime.NowTicks();
+			var add = VipTime.SecondsToTicks(_startDurationSeconds);
+			var until = now + add;
+			VipTime.WriteUntil(data, _info.VipRemainingTimeKey, until);
 		}
-		
+
+		public long GetUntilTicks(IPlayerDataInfo data) => _info.GetUntilTicks(data);
+
 		public void SetUntilTicks(PlayerData data, long ticks)
-			=> data.SetString(_info.VipRemainingTimeKey, ticks <= 0 ? "0" : ticks.ToString());
-		
+			=> VipTime.WriteUntil(data, _info.VipRemainingTimeKey, ticks);
+
+		public int GetRemainingSeconds(IPlayerDataInfo data) => _info.GetRemainingSeconds(data);
+		public bool IsActive(IPlayerDataInfo data) => _info.IsActive(data);
+
 #if UNITY_EDITOR
-		private void OnValidate()
-		{
-			_startDurationSeconds = Mathf.Max(0, _startDurationSeconds);
-		}
+		private void OnValidate() => _startDurationSeconds = Mathf.Max(0, _startDurationSeconds);
 #endif
 	}
 }

@@ -9,7 +9,7 @@ namespace Gold
 		[SerializeField] private GoldInfo _info;
 		[SerializeField] private int _startGold = 100;
 		
-		public GoldInfo Info => _info;
+		public override PlayerDataValueInfo Info => _info;
 		
 		public override void Initialize(PlayerData data) => data.SetInt(_info.CurrentGoldKey, _startGold);
 		
@@ -18,6 +18,8 @@ namespace Gold
 		
 		public void Decrease(PlayerData data, int amount)
 			=> data.SetInt(_info.CurrentGoldKey, _info.GetCurrentGold(data) - amount);
+		
+		public int GetCurrentGold(IPlayerDataInfo data) =>_info.GetCurrentGold(data);
 
 #if UNITY_EDITOR
 		private void OnValidate()

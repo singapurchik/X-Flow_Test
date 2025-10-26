@@ -7,8 +7,8 @@ namespace VIP
 	{
 		public static long SecondsToTicks(int seconds) => Math.Max(1, seconds) * TICKS_PER_SECOND;
 		public static long NowTicks() => DateTime.UtcNow.Ticks;
-		
-		public const long TICKS_PER_SECOND = TimeSpan.TicksPerSecond;
+
+		private const long TICKS_PER_SECOND = TimeSpan.TicksPerSecond;
 
 		public static bool TryReadUntil(IPlayerDataInfo data, PlayerDataKey key, out long until)
 		{

@@ -11,8 +11,7 @@ namespace VIP
 
 		public override PlayerDataValueInfo Info => _vip.Info;
 
-		public IOperationParameter CreateDefaultParam()
-			=> new IntAmountParameter { Amount = _defaultSeconds };
+		public IOperationParameter CreateDefaultParam() => new IntAmountParameter { Amount = _defaultSeconds };
 
 		public bool IsSupports(IOperationParameter parameter) => parameter is IntAmountParameter;
 
@@ -32,7 +31,9 @@ namespace VIP
 
 			var now = VipTime.NowTicks();
 			var until = _vip.GetUntilTicks(data);
-			if (until < now) until = now;
+			
+			if (until < now)
+				until = now;
 
 			var addTicks = VipTime.SecondsToTicks(seconds);
 			var maxAdd = long.MaxValue - until;

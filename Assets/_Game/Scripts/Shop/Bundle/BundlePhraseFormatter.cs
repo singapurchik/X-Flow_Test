@@ -33,25 +33,24 @@ namespace Shop
 			return _stringBuilder.ToString();
 		}
 
-		private static int CountValid(IReadOnlyList<IPlayerDataOperationInfo> list)
+		private int CountValid(IReadOnlyList<IPlayerDataOperationInfo> list)
 		{
 			if (list != null)
 			{
-				int count = 0;
+				var count = 0;
 				for (int i = 0; i < list.Count; i++)
 				{
-					var d = list[i]?.Info;
-					if (d != null && !string.IsNullOrEmpty(d.DisplayName))
+					var info = list[i]?.Info;
+					
+					if (info != null && !string.IsNullOrEmpty(info.DisplayName))
 						count++;
 				}
-
 				return count;
 			}
-
 			return 0;
 		}
 
-		private static void AppendJoinedWithAnd(StringBuilder stringBuilder,
+		private void AppendJoinedWithAnd(StringBuilder stringBuilder,
 			IReadOnlyList<IPlayerDataOperationInfo> list, int totalValid)
 		{
 			int appended = 0;
@@ -72,7 +71,7 @@ namespace Shop
 			}
 		}
 
-		private static void NormalizeCasing(StringBuilder stringBuilder)
+		private void NormalizeCasing(StringBuilder stringBuilder)
 		{
 			if (stringBuilder.Length > 0)
 			{

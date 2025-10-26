@@ -27,8 +27,6 @@ namespace VIP
 			return left > 0 ? (int)TimeSpan.FromTicks(left).TotalSeconds : 0;
 		}
 
-		public bool IsActive(IPlayerDataInfo data) => GetRemainingTime(data) > TimeSpan.Zero;
-
 		public override string ReadCurrentValueAsString(IPlayerDataInfo data)
 			=> GetRemainingSeconds(data).ToString();
 	}

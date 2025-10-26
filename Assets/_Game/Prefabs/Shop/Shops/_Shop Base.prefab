@@ -354,7 +354,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2169251565923657026}
   - component: {fileID: 948028904158324470}
-  - component: {fileID: 8519148626489282554}
   - component: {fileID: 434281755847756089}
   m_Layer: 0
   m_Name: _Shop Base
@@ -393,7 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec43d89ddf9488f974789e45c10317f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entry: {fileID: 8519148626489282554}
   _view: {fileID: 434281755847756089}
   _dataValueInfos:
   - {fileID: 11400000, guid: c41e284723211f44380dd2fc10b24767, type: 2}
@@ -445,18 +443,6 @@ MonoBehaviour:
       type: {class: IntAmountParameter, ns: Core, asm: Core}
       data:
         Amount: 10
---- !u!114 &8519148626489282554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7599576785202436468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff9abda298a4a33ac8fb6d302534599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &434281755847756089
 MonoBehaviour:
   m_ObjectHideFlags: 0

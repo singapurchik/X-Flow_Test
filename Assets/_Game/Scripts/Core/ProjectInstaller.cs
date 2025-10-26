@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Core.Utils;
 using Zenject;
+
+#if UNITY_EDITOR
+using Core.Editor;
+#endif
 
 namespace Core
 {

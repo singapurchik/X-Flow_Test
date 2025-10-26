@@ -13,21 +13,17 @@ namespace VIP
 
 		public override void Initialize(PlayerData data)
 		{
-			if (_startDurationSeconds <= 0) return;
-
-			var now = VipTime.NowTicks();
-			var add = VipTime.SecondsToTicks(_startDurationSeconds);
-			var until = now + add;
-			VipTime.WriteUntil(data, _info.VipRemainingTimeKey, until);
+			if (_startDurationSeconds > 0)
+			{
+				var until =  VipTime.NowTicks() + VipTime.SecondsToTicks(_startDurationSeconds);
+				VipTime.WriteUntil(data, _info.VipRemainingTimeKey, until);	
+			}
 		}
 
 		public long GetUntilTicks(IPlayerDataInfo data) => _info.GetUntilTicks(data);
 
 		public void SetUntilTicks(PlayerData data, long ticks)
 			=> VipTime.WriteUntil(data, _info.VipRemainingTimeKey, ticks);
-
-		public int GetRemainingSeconds(IPlayerDataInfo data) => _info.GetRemainingSeconds(data);
-		public bool IsActive(IPlayerDataInfo data) => _info.IsActive(data);
 
 #if UNITY_EDITOR
 		private void OnValidate() => _startDurationSeconds = Mathf.Max(0, _startDurationSeconds);

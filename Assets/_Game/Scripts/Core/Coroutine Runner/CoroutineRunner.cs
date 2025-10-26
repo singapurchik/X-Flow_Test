@@ -5,6 +5,6 @@ namespace Core
 {
 	public sealed class CoroutineRunner : MonoBehaviour, ICoroutineRunner
 	{
-		public Coroutine Run(IEnumerator routine) => StartCoroutine(routine);
+		public void Run(IEnumerator routine) => StartCoroutine(routine);
 	}
 }

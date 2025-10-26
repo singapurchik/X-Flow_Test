@@ -9,20 +9,24 @@ namespace Core
 		private readonly Dictionary<string, bool> _bools = new(64);
 		private readonly Dictionary<string, int> _ints = new(64);
 
-		public int GetInt(PlayerDataKey key, int def = 0) => _ints.GetValueOrDefault(key.Id, def);
+		public int GetInt(PlayerDataKey key, int defaultValue = 0)
+			=> _ints.GetValueOrDefault(key.Id, defaultValue);
 
 		public void SetInt(PlayerDataKey key, int value) => _ints[key.Id] = value;
 
-		public float GetFloat(PlayerDataKey key, float def = 0f) => _floats.GetValueOrDefault(key.Id, def);
+		public float GetFloat(PlayerDataKey key, float defaultValue = 0f)
+			=> _floats.GetValueOrDefault(key.Id, defaultValue);
 
-		public void SetFloat(PlayerDataKey key, float v) => _floats[key.Id] = v;
+		public void SetFloat(PlayerDataKey key, float value) => _floats[key.Id] = value;
 
-		public bool GetBool(PlayerDataKey key, bool def = false) => _bools.TryGetValue(key.Id, out var v) && v || def;
+		public bool GetBool(PlayerDataKey key, bool defaultValue = false)
+			=> _bools.TryGetValue(key.Id, out var v) && v || defaultValue;
 
-		public void SetBool(PlayerDataKey key, bool v) => _bools[key.Id] = v;
+		public void SetBool(PlayerDataKey key, bool value) => _bools[key.Id] = value;
 
-		public string GetString(PlayerDataKey key, string def = "") => _strings.GetValueOrDefault(key.Id, def);
+		public string GetString(PlayerDataKey key, string defaultValue = "")
+			=> _strings.GetValueOrDefault(key.Id, defaultValue);
 
-		public void SetString(PlayerDataKey key, string v) => _strings[key.Id] = v;
+		public void SetString(PlayerDataKey key, string value) => _strings[key.Id] = value;
 	}
 }

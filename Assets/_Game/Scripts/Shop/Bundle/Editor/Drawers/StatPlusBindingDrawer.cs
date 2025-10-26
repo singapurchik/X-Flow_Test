@@ -12,8 +12,7 @@ namespace Shop.EditorTools
         private const string OpPropName    = "Operation";
         private const string ParamPropName = "Param";
 
-        // Небольшой отступ между элементами массива/списка
-        private const float BottomSpacing = 6f;   // подбери по вкусу (4–10)
+        private const float BottomSpacing = 6f;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -26,14 +25,11 @@ namespace Shop.EditorTools
             float line = EditorGUIUtility.singleLineHeight;
             float pad  = EditorGUIUtility.standardVerticalSpacing;
 
-            // Сужаем position, чтобы снизу остался визуальный "хвост" (BottomSpacing)
             var contentRect = new Rect(position.x, position.y, position.width, position.height - BottomSpacing);
 
-            // 1) Info
             var r1 = new Rect(contentRect.x, contentRect.y, contentRect.width, line);
             EditorGUI.PropertyField(r1, infoProp);
 
-            // 2) Operation
             var r2 = new Rect(contentRect.x, r1.yMax + pad, contentRect.width, line);
             EditorGUI.BeginChangeCheck();
             EditorGUI.PropertyField(r2, opProp);
@@ -62,7 +58,6 @@ namespace Shop.EditorTools
                 }
             }
 
-            // 3) Param (если нужен)
             if (opObj is IOperationWithParameter && paramProp != null && paramProp.managedReferenceValue != null)
             {
                 var ph = EditorGUI.GetPropertyHeight(paramProp, includeChildren: true);
@@ -70,30 +65,23 @@ namespace Shop.EditorTools
                 EditorGUI.PropertyField(r3, paramProp, includeChildren: true);
             }
 
-            // (необязательно) тонкая разделительная линия внизу элемента
-            // var lineRect = new Rect(position.x, position.yMax - BottomSpacing + 2f, position.width, 1f);
-            // EditorGUI.DrawRect(lineRect, new Color(0,0,0,0.15f));
-
             EditorGUI.EndProperty();
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            float h   = EditorGUIUtility.singleLineHeight; // Info
+            float h   = EditorGUIUtility.singleLineHeight;
             float pad = EditorGUIUtility.standardVerticalSpacing;
 
-            h += pad + EditorGUIUtility.singleLineHeight;  // Operation
+            h += pad + EditorGUIUtility.singleLineHeight;
 
             var opProp    = property.FindPropertyRelative(OpPropName);
             var paramProp = property.FindPropertyRelative(ParamPropName);
 
             var opObj = opProp?.objectReferenceValue as PlayerDataOperation;
             if (opObj is IOperationWithParameter && paramProp != null && paramProp.managedReferenceValue != null)
-            {
-                h += pad + EditorGUI.GetPropertyHeight(paramProp, includeChildren: true); // Param
-            }
+	            h += pad + EditorGUI.GetPropertyHeight(paramProp, includeChildren: true); // Param
 
-            // Хвостовой отступ между элементами
             h += BottomSpacing;
             return h;
         }

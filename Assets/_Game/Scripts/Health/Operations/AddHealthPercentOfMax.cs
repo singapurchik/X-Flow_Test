@@ -11,26 +11,22 @@ namespace Health
 
 		public override PlayerDataValueInfo Info => _health.Info;
 
-		public IOperationParameter CreateDefaultParam()
-			=> new PercentAmountParameter { Percent = _defaultPercent };
+		public IOperationParameter CreateDefaultParam() => new PercentAmountParameter { Percent = _defaultPercent };
 
-		public bool IsSupports(IOperationParameter parameter)
-			=> parameter is PercentAmountParameter;
+		public bool IsSupports(IOperationParameter parameter) => parameter is PercentAmountParameter;
 
 		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter) => true;
 
 		public override void Apply(PlayerData data)
-		{
-			Apply(data, new PercentAmountParameter { Percent = _defaultPercent });
-		}
+			=> Apply(data, new PercentAmountParameter { Percent = _defaultPercent });
 
 		public void Apply(PlayerData data, IOperationParameter parameter)
 		{
-			var p = parameter as PercentAmountParameter;
-			int percent = Mathf.Clamp(p?.Percent ?? _defaultPercent, 1, 100);
+			var intParam = parameter as PercentAmountParameter;
+			var percent = Mathf.Clamp(intParam?.Percent ?? _defaultPercent, 1, 100);
 
-			int max   = Mathf.Max(1, _health.GetMaxHealth(data));
-			int delta = Mathf.Max(1, Mathf.CeilToInt(max * (percent / 100f)));
+			var max = Mathf.Max(1, _health.GetMaxHealth(data));
+			var delta = Mathf.Max(1, Mathf.CeilToInt(max * (percent / 100f)));
 
 			_health.Increase(data, delta);
 		}

@@ -26,9 +26,9 @@ namespace Location
 			_location.SetLocation(data, _targetLocation);
 		}
 		
-		private static bool IsLobby(LocationType value) => value.Equals(default(LocationType));
+		private bool IsLobby(LocationType value) => value.Equals(default(LocationType));
 
-		private static LocationType GetFirstNonLobby()
+		private LocationType GetFirstNonLobby()
 		{
 			var values = (LocationType[])System.Enum.GetValues(typeof(LocationType));
 			

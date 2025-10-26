@@ -5,7 +5,7 @@ using Core;
 
 namespace Shop
 {
-	public sealed class Shop : IShopEntryPoint
+	public sealed class Shop
 	{
 		[Inject] private SelectedBundleDataReference _selectedBundleDataReference;
 		[Inject] private IReadOnlyList<StatPlusBinding> _plusBindings;

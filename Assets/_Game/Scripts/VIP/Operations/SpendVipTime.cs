@@ -11,19 +11,17 @@ namespace VIP
 
 		public override PlayerDataValueInfo Info => _vip.Info;
 
-		public IOperationParameter CreateDefaultParam()
-			=> new IntAmountParameter { Amount = _defaultSeconds };
+		public IOperationParameter CreateDefaultParam() => new IntAmountParameter { Amount = _defaultSeconds };
 
 		public bool IsSupports(IOperationParameter parameter) => parameter is IntAmountParameter;
 
 		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter)
 		{
-			var p = parameter as IntAmountParameter;
-			return HasEnough(data, p?.Amount ?? _defaultSeconds);
+			var intParam = parameter as IntAmountParameter;
+			return HasEnough(data, intParam?.Amount ?? _defaultSeconds);
 		}
 
-		public override bool IsCanApply(IPlayerDataInfo data)
-			=> HasEnough(data, _defaultSeconds);
+		public override bool IsCanApply(IPlayerDataInfo data) => HasEnough(data, _defaultSeconds);
 
 		public override void Apply(PlayerData data) => SpendSeconds(data, _defaultSeconds);
 
@@ -48,14 +46,15 @@ namespace VIP
 			var now = VipTime.NowTicks();
 			var until = _vip.GetUntilTicks(data);
 
-			if (until <= now)
+			if (until > now)
+			{
+				var next = until - VipTime.SecondsToTicks(seconds);
+				_vip.SetUntilTicks(data, next <= now ? 0L : next);
+			}
+			else
 			{
 				_vip.SetUntilTicks(data, 0L);
-				return;
 			}
-
-			var next = until - VipTime.SecondsToTicks(seconds);
-			_vip.SetUntilTicks(data, next <= now ? 0L : next);
 		}
 
 #if UNITY_EDITOR

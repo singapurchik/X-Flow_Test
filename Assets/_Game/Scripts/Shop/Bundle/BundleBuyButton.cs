@@ -18,16 +18,18 @@ namespace Shop
 		public void Enable()
 		{
 			_button.interactable = true;
-			_buyButtonText.text = BUY_TEXT;
+			SetBuyText();
 		}
 		
 		public void Disable()
 		{
 			_button.interactable = false;
-			_buyButtonText.text = BUY_TEXT;
+			SetBuyText();
 		}
 		
 		public void SetProcessingText() => _buyButtonText.text = PROCESSING_TEXT;
+		
+		private void SetBuyText() => _buyButtonText.text = BUY_TEXT;
 
 		public void RemoveListenerOnClick(UnityAction caller) => _button.onClick.RemoveListener(caller);
 		

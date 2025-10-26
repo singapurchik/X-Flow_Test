@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Shop
 {
-	public class StatsView : MonoBehaviour, IStatsView
+	public class StatsView : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _text;
 		[SerializeField] private Button _plusButton;

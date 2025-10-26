@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using Zenject;
+using System;
 using Core;
 
 namespace Shop
@@ -22,8 +23,17 @@ namespace Shop
 		private readonly Dictionary<StatsView, PlayerDataValueInfo> _statsViewInfoPair = new (10);
 		private readonly HashSet<Bundle> _bundles = new (10);
 		
+		private Coroutine _currentUpdateStatsViewLayoutCoroutine;
+		private HorizontalLayoutGroup _statsViewLayoutGroup;
+		
 		public event Action<PlayerDataValueInfo> OnPlusButtonClicked;
 		public event Action OnCloseInfoButtonClicked;
+
+		private void Awake()
+		{
+			_statsViewLayoutGroup = _statsViewContainer.GetComponent<HorizontalLayoutGroup>();
+			_statsViewLayoutGroup.enabled = false;
+		}
 
 		private void OnEnable()
 		{
@@ -80,6 +90,21 @@ namespace Shop
 
 			foreach (var statsView in _statsViewInfoPair)
 				statsView.Key.SetValue(statsView.Value.ReadCurrentValueAsString(_dataInfo));
+
+			if (_currentUpdateStatsViewLayoutCoroutine != null)
+				StopCoroutine(_currentUpdateStatsViewLayoutCoroutine);
+			
+			_currentUpdateStatsViewLayoutCoroutine = StartCoroutine(UpdateStatsViewLayout());
+		}
+
+		private IEnumerator UpdateStatsViewLayout()
+		{
+			_statsViewLayoutGroup.enabled = false;
+			yield return null;
+			_statsViewLayoutGroup.enabled = true;
+			yield return null;
+			_statsViewLayoutGroup.enabled = false;
+			_currentUpdateStatsViewLayoutCoroutine = null;
 		}
 
 		private void InvokeOnStatPlusClicked(StatsView view) => OnPlusButtonClicked?.Invoke(_statsViewInfoPair[view]);

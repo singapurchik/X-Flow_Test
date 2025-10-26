@@ -13,21 +13,26 @@ MonoBehaviour:
   m_Name: Bundle Data 2
   m_EditorClassIdentifier: 
   _rewards:
-  - Operation: {fileID: 11400000, guid: 3784bda1e641a124ab64012436ebc5cc, type: 2}
+  - Operation: {fileID: 11400000, guid: 1c891bac1b6139e4e88fee27bb786a1d, type: 2}
     Parameter:
-      rid: 9063764232982495313
+      rid: -2
+  - Operation: {fileID: 11400000, guid: 7d260b1369a8bd24a98827804f1ee0ec, type: 2}
+    Parameter:
+      rid: 9063764236832079990
   _costs:
-  - Operation: {fileID: 11400000, guid: bc1353b4521ac584d8429c9580f35699, type: 2}
+  - Operation: {fileID: 11400000, guid: 8231bb21c3f4f4c41a1616e3be01ab47, type: 2}
     Parameter:
-      rid: 9063764211101597848
+      rid: 9063764236832079986
   references:
     version: 2
     RefIds:
-    - rid: 9063764211101597848
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 9063764236832079986
       type: {class: IntAmountParameter, ns: Core, asm: Core}
       data:
-        Amount: 29
-    - rid: 9063764232982495313
+        Amount: 10
+    - rid: 9063764236832079990
       type: {class: IntAmountParameter, ns: Core, asm: Core}
       data:
-        Amount: 1
+        Amount: 30

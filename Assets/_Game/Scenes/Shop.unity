@@ -304,21 +304,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
-      propertyPath: _statPlusBindings.Array.size
+      propertyPath: 'managedReferences[9063764236832079971]'
+      value: Core Core.IntAmountParameter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
+      propertyPath: 'managedReferences[9063764236832079973]'
+      value: Core Core.IntAmountParameter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
+      propertyPath: managedReferences[9063764236832079971].Amount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
-      propertyPath: _statPlusBindings.Array.data[0].Info
-      value: 
-      objectReference: {fileID: 11400000, guid: 856acb804457dd240884b433c729d3b4, type: 2}
-    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
-      propertyPath: _statPlusBindings.Array.data[0].Param
-      value: -2
+      propertyPath: managedReferences[9063764236832079973].Amount
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5693575346842483401, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
-      propertyPath: _statPlusBindings.Array.data[0].Operation
-      value: 
-      objectReference: {fileID: 11400000, guid: 7b047ffbd64bb4341a26d76cb1f29987, type: 2}
     - target: {fileID: 5727285946852102205, guid: 9edf298926144dd4795aaa15795bcab7, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

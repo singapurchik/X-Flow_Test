@@ -1,0 +1,42 @@
+using UnityEngine;
+using Core;
+
+namespace Health
+{
+	[CreateAssetMenu(fileName = "Add Health Percent of Max", menuName = "Health/Operations/Add (Percent of Max)")]
+	public sealed class AddHealthPercentOfMax : ProvideOperation, IOperationWithParameter
+	{
+		[SerializeField] private Health _health;
+		[Range(1, 100)] [SerializeField] private int _defaultPercent = 10;
+
+		public override PlayerDataValueInfo Info => _health.Info;
+
+		public IOperationParameter CreateDefaultParam()
+			=> new PercentAmountParameter { Percent = _defaultPercent };
+
+		public bool IsSupports(IOperationParameter parameter)
+			=> parameter is PercentAmountParameter;
+
+		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter) => true;
+
+		public override void Apply(PlayerData data)
+		{
+			Apply(data, new PercentAmountParameter { Percent = _defaultPercent });
+		}
+
+		public void Apply(PlayerData data, IOperationParameter parameter)
+		{
+			var p = parameter as PercentAmountParameter;
+			int percent = Mathf.Clamp(p?.Percent ?? _defaultPercent, 1, 100);
+
+			int max   = Mathf.Max(1, _health.GetMaxHealth(data));
+			int delta = Mathf.Max(1, Mathf.CeilToInt(max * (percent / 100f)));
+
+			_health.Increase(data, delta);
+		}
+
+#if UNITY_EDITOR
+		private void OnValidate() => _defaultPercent = Mathf.Clamp(_defaultPercent, 1, 100);
+#endif
+	}
+}

@@ -12,23 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff74dfcfca154d42ad9ae30801561a66, type: 3}
   m_Name: Bundle Data
   m_EditorClassIdentifier: 
-  _amount: 3
-  _costs:
-  - Operation: {fileID: 11400000, guid: 10fb02b970f639845aeff7fad6089f6e, type: 2}
-    Parameter:
-      rid: 9063764211101597849
   _rewards:
-  - Operation: {fileID: 11400000, guid: 3784bda1e641a124ab64012436ebc5cc, type: 2}
+  - Operation: {fileID: 11400000, guid: f1f846ee448d275429953d348ecb0520, type: 2}
     Parameter:
-      rid: 9063764211101597850
+      rid: 9063764236832079984
+  _costs:
+  - Operation: {fileID: 11400000, guid: 7b047ffbd64bb4341a26d76cb1f29987, type: 2}
+    Parameter:
+      rid: -2
   references:
     version: 2
     RefIds:
-    - rid: 9063764211101597849
-      type: {class: IntAmountParameter, ns: Core, asm: Core}
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 9063764236832079984
+      type: {class: PercentAmountParameter, ns: Core, asm: Core}
       data:
-        Amount: 1
-    - rid: 9063764211101597850
-      type: {class: IntAmountParameter, ns: Core, asm: Core}
-      data:
-        Amount: 1
+        Percent: 10

@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
 
-namespace Shop
+namespace Shop.EditorTools
 {
 	public sealed class ReferenceEqualityComparer<T> : IEqualityComparer<T> where T : class
 	{

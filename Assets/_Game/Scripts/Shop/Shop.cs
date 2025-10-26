@@ -46,6 +46,7 @@ namespace Shop
 			_view.CreateStatsViews();
 			_view.OnCloseInfoButtonClicked += OnCloseBundleInfoButtonClicked;
 			_view.OnPlusButtonClicked += OnStatPlusClicked;
+			_view.UpdateView();
 		}
 		
 		private void OnStatPlusClicked(PlayerDataValueInfo info)

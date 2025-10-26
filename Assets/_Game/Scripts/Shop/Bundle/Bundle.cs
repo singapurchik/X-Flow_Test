@@ -1,3 +1,4 @@
+using UnityEngine.UI;
 using UnityEngine;
 using Zenject;
 using System;
@@ -10,17 +11,20 @@ namespace Shop
 	{
 		[SerializeField] private TextMeshProUGUI _costsRewardsText;
 		[SerializeField] private BundleBuyButton _buyButton;
+		[SerializeField] private Button _infoButton;
 
 		[Inject] private BundlePhraseFormatter _formatter;
 		[Inject] private IPlayerDataInfo _playerData;
 
 		private BundleData _currentData;
 
+		public event Action<BundleData> OnInfoButtonClicked;
 		public event Action<BundleData> OnBuyButtonClicked;
 		public event Action<Bundle> OnBundleOutOfStock;
 
 		public void Initialize(BundleData data)
 		{
+			_infoButton.onClick.AddListener(InvokeOnInfoButtonClicked);
 			_buyButton.AddListenerOnClick(InvokeOnBuyButtonClicked);
 			
 			_currentData = data;
@@ -66,14 +70,10 @@ namespace Shop
 			}
 			return false;
 		}
-
-		public void DecreaseAmount()
-		{
-			_buyButton.Enable();
-		}
 		
 		private void BundleOutOfStock()
 		{
+			_infoButton.onClick.RemoveListener(InvokeOnInfoButtonClicked);
 			_buyButton.RemoveListenerOnClick(InvokeOnBuyButtonClicked);
 			OnBundleOutOfStock?.Invoke(this);
 		}
@@ -83,5 +83,7 @@ namespace Shop
 			_buyButton.SetProcessingText();
 			OnBuyButtonClicked?.Invoke(_currentData);
 		}
+		
+		private void InvokeOnInfoButtonClicked() => OnInfoButtonClicked?.Invoke(_currentData);
 	}
 }

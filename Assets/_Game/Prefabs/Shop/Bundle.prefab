@@ -720,4 +720,4 @@ MonoBehaviour:
   _buyButton:
     _buyButtonText: {fileID: 3995407489623691629}
     _button: {fileID: 267291011309192169}
-  _currentData: {fileID: 0}
+  _infoButton: {fileID: 7761304582483686892}

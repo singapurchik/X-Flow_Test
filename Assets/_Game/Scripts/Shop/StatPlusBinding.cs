@@ -8,7 +8,7 @@ namespace Shop
 	public struct StatPlusBinding
 	{
 		public PlayerDataValueInfo Info;
-		public ProvideOperation Operation;
+		public PlayerDataOperation Operation;
 		[SerializeReference] public IOperationParameter Param;
 	}
 }

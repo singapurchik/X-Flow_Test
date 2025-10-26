@@ -82,7 +82,6 @@ namespace Shop
 				statsView.Key.SetValue(statsView.Value.ReadCurrentValueAsString(_dataInfo));
 		}
 
-
 		private void InvokeOnStatPlusClicked(StatsView view) => OnPlusButtonClicked?.Invoke(_statsViewInfoPair[view]);
 
 		private void InvokeOnCloseInfoButtonClicked() => OnCloseInfoButtonClicked?.Invoke();

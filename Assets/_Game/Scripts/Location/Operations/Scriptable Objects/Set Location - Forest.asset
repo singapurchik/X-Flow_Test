@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Set Location - Forest
   m_EditorClassIdentifier: 
   _location: {fileID: 11400000, guid: 81a8131b3186d9f41bf1045f49c7bd24, type: 2}
-  _targetLocation: 1
+  _targetLocation: 2

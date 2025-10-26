@@ -3,8 +3,9 @@ using Core;
 
 namespace Health
 {
-    [CreateAssetMenu(fileName = "Spend Health Percent of Max", menuName = "Health/Operations/Spend (Percent of Max)")]
-    public sealed class SpendHealthPercentOfMax : ConsumeOperation, IOperationWithParameter
+    [CreateAssetMenu(fileName = "Spend Health Percent of Current",
+	    menuName = "Health/Operations/Spend (Percent of Current)")]
+    public sealed class SpendHealthPercentOfCurrent : ConsumeOperation, IOperationWithParameter
     {
         [SerializeField] private Health _health;
         [Range(1, 100)] [SerializeField] private int _defaultPercent = 10;
@@ -16,30 +17,29 @@ namespace Health
         public bool IsSupports(IOperationParameter parameter) => parameter is PercentAmountParameter;
 
         public override bool IsCanApply(IPlayerDataInfo data)
-	        => IsCanApply(data, new PercentAmountParameter { Percent = _defaultPercent });
+            => IsCanApply(data, new PercentAmountParameter { Percent = _defaultPercent });
 
         public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter)
         {
             var intParam = parameter as PercentAmountParameter;
             var percent = Mathf.Clamp(intParam?.Percent ?? _defaultPercent, 1, 100);
 
-            var max  = Mathf.Max(1, _health.GetMaxHealth(data));
-            var current  = Mathf.Max(0, _health.GetCurrentHealth(data));
-            var need = Mathf.Max(1, Mathf.CeilToInt(max * (percent / 100f)));
+            var current = Mathf.Max(0, _health.GetCurrentHealth(data));
+            var need = Mathf.Max(1, (current * percent + 99) / 100);
 
             return current >= need;
         }
 
         public override void Apply(PlayerData data)
-	        => Apply(data, new PercentAmountParameter { Percent = _defaultPercent });
+            => Apply(data, new PercentAmountParameter { Percent = _defaultPercent });
 
         public void Apply(PlayerData data, IOperationParameter parameter)
         {
             var intParam = parameter as PercentAmountParameter;
             var percent = Mathf.Clamp(intParam?.Percent ?? _defaultPercent, 1, 100);
 
-            var max   = Mathf.Max(1, _health.GetMaxHealth(data));
-            var delta = Mathf.Max(1, Mathf.CeilToInt(max * (percent / 100f)));
+            var current = Mathf.Max(0, _health.GetCurrentHealth(data));
+            var delta = Mathf.Max(1, (current * percent + 99) / 100);
 
             _health.Decrease(data, delta);
         }

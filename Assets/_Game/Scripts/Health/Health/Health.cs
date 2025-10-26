@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Core;
 
@@ -14,22 +15,16 @@ namespace Health
 
 		public override void Initialize(PlayerData data)
 		{
-			data.SetInt(_info.MaxHealthKey, _maxHealth);
 			data.SetInt(_info.CurrentHealthKey, Mathf.Clamp(_startHealth, 0, _maxHealth));
 		}
 
 		public int GetCurrentHealth(IPlayerDataInfo data) => _info.GetCurrentHealth(data);
 		
-		public int GetMaxHealth(IPlayerDataInfo data) => _info.GetMaxHealth(data);
-
 		public void Increase(PlayerData data, int amount)
-			=> data.SetInt(_info.CurrentHealthKey,
-				Mathf.Clamp(GetCurrentHealth(data) + Mathf.Max(0, amount), 0, GetMaxHealth(data)));
+			=> data.SetInt(_info.CurrentHealthKey, GetCurrentHealth(data) + amount);
 
 		public void Decrease(PlayerData data, int amount)
-			=> 	data.SetInt(_info.CurrentHealthKey,
-				Mathf.Clamp(GetCurrentHealth(data) - Mathf.Max(0, amount), 0, GetMaxHealth(data)));
-
+			=> data.SetInt(_info.CurrentHealthKey, Mathf.Max(0, GetCurrentHealth(data) - amount));
 
 #if UNITY_EDITOR
 		private void OnValidate()

@@ -6,9 +6,10 @@ namespace Core
 	[Serializable]
 	public class PercentAmountParameter : IOperationParameter, ISerializationCallbackReceiver
 	{
-		[Range(1, 100)] public int Percent = 10;
-		
-		public void OnBeforeSerialize()  { Percent = Mathf.Clamp(Percent, 1, 100); }
-		public void OnAfterDeserialize() { Percent = Mathf.Clamp(Percent, 1, 100); }
+		[Min(1)] public int Percent = 1;
+
+		public void OnBeforeSerialize() { if (Percent < 1) Percent = 1; }
+
+		public void OnAfterDeserialize() { if (Percent < 1) Percent = 1; }
 	}
 }

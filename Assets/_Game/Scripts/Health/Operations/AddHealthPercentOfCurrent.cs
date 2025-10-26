@@ -3,8 +3,9 @@ using Core;
 
 namespace Health
 {
-	[CreateAssetMenu(fileName = "Add Health Percent of Max", menuName = "Health/Operations/Add (Percent of Max)")]
-	public sealed class AddHealthPercentOfMax : ProvideOperation, IOperationWithParameter
+	[CreateAssetMenu(fileName = "Add Health Percent of Current",
+		menuName = "Health/Operations/Add (Percent of Current)")]
+	public sealed class AddHealthPercentOfCurrent : ProvideOperation, IOperationWithParameter
 	{
 		[SerializeField] private Health _health;
 		[Range(1, 100)] [SerializeField] private int _defaultPercent = 10;
@@ -25,8 +26,8 @@ namespace Health
 			var intParam = parameter as PercentAmountParameter;
 			var percent = Mathf.Clamp(intParam?.Percent ?? _defaultPercent, 1, 100);
 
-			var max = Mathf.Max(1, _health.GetMaxHealth(data));
-			var delta = Mathf.Max(1, Mathf.CeilToInt(max * (percent / 100f)));
+			var current = Mathf.Max(0, _health.GetCurrentHealth(data));
+			var delta = Mathf.Max(1, (current * percent + 99) / 100);
 
 			_health.Increase(data, delta);
 		}

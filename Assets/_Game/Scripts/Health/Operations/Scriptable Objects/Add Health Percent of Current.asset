@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bbabb6c8f574e22b43dbc3e0c14374f, type: 3}
-  m_Name: Spend Health Percent of Max
+  m_Script: {fileID: 11500000, guid: 20896405f1a6473b80dfd2fb01635671, type: 3}
+  m_Name: Add Health Percent of Current
   m_EditorClassIdentifier: 
   _health: {fileID: 11400000, guid: 84261db454d3e434f8d5234e55c8d16c, type: 2}
   _defaultPercent: 10

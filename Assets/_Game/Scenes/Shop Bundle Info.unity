@@ -666,7 +666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5017746520630134302, guid: 4ea5469a7a6c75d439b96c95872bb816, type: 3}
       propertyPath: m_Name
-      value: Shop Bundle Detailed
+      value: Shop Bundle Info
       objectReference: {fileID: 0}
     - target: {fileID: 5375600536588213735, guid: 4ea5469a7a6c75d439b96c95872bb816, type: 3}
       propertyPath: m_AnchorMax.y

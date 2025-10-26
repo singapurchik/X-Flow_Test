@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using Zenject;
 using Core;
@@ -10,6 +12,7 @@ namespace Shop
 		[SerializeField] private RectTransform _statsViewContainer;
 		[SerializeField] private RectTransform _bundlesContainer;
 		[SerializeField] private CanvasGroup _canvasGroup;
+		[SerializeField] private Button _closeInfoButton;
 
 		[Inject] private IReadOnlyList<PlayerDataValueInfo> _dataValueInfos;
 		[Inject] private IPlayerDataInfo _dataInfo;
@@ -19,6 +22,18 @@ namespace Shop
 		private readonly Dictionary<PlayerDataValueInfo, StatsView> _statsView = new (10);
 		private readonly HashSet<Bundle> _bundles = new (10);
 		
+		public event Action OnCloseInfoButtonClicked;
+
+		private void OnEnable()
+		{
+			_closeInfoButton.onClick.AddListener(InvokeOnCloseInfoButtonClicked);
+		}
+
+		private void OnDisable()
+		{
+			_closeInfoButton.onClick.RemoveListener(InvokeOnCloseInfoButtonClicked);
+		}
+
 		public void DisableInput()
 		{
 			_canvasGroup.blocksRaycasts = false;
@@ -64,5 +79,7 @@ namespace Shop
 			foreach (var statsView in _statsView)
 				statsView.Value.SetValue(statsView.Key.ReadCurrentValueAsString(_dataInfo));
 		}
+		
+		private void InvokeOnCloseInfoButtonClicked() => OnCloseInfoButtonClicked?.Invoke();
 	}
 }

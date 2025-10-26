@@ -1,3 +1,5 @@
+using System;
+
 namespace Shop
 {
 	public interface IShopView
@@ -8,5 +10,7 @@ namespace Shop
 		public void DisableInput();
 		public void EnableInput();
 		public void UpdateView();
+		
+		public event Action OnCloseInfoButtonClicked;
 	}
 }

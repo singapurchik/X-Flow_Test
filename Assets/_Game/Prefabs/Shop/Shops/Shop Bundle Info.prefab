@@ -193,15 +193,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4119665591859375150, guid: c64cce0a176bf9b479dc0c99f5c10348, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.79300004
+      value: 0.827146
       objectReference: {fileID: 0}
     - target: {fileID: 4119665591859375150, guid: c64cce0a176bf9b479dc0c99f5c10348, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.49328613
+      value: -0.9441986
       objectReference: {fileID: 0}
     - target: {fileID: 4119665591859375150, guid: c64cce0a176bf9b479dc0c99f5c10348, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.409729
+      value: 0.30889893
       objectReference: {fileID: 0}
     - target: {fileID: 4540588366777104853, guid: c64cce0a176bf9b479dc0c99f5c10348, type: 3}
       propertyPath: m_SizeDelta.x
@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7599576785202436468, guid: c64cce0a176bf9b479dc0c99f5c10348, type: 3}
       propertyPath: m_Name
-      value: Shop Bundle Detailed
+      value: Shop Bundle Info
       objectReference: {fileID: 0}
     - target: {fileID: 8163685536116732755, guid: c64cce0a176bf9b479dc0c99f5c10348, type: 3}
       propertyPath: m_AnchorMax.y

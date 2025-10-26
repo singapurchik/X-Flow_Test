@@ -2,7 +2,7 @@ namespace Shop
 {
 	public interface IShopScenesLoader
 	{
-		public void LoadBundleDetailedScene();
+		public void LoadBundleInfoScene();
 
 		public void LoadShopScene();
 	}

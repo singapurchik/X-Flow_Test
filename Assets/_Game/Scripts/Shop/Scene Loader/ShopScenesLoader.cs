@@ -4,16 +4,16 @@ namespace Shop
 {
 	public class ShopScenesLoader : SceneLoaderBase, IShopScenesLoader
 	{
-		private readonly SceneLoadingData _bundleDetailed;
+		private readonly SceneLoadingData _bundleInfo;
 		private readonly SceneLoadingData _shop;
 
-		public ShopScenesLoader(SceneLoadingData bundleDetailed, SceneLoadingData shop)
+		public ShopScenesLoader(SceneLoadingData bundleInfo, SceneLoadingData shop)
 		{
-			_bundleDetailed = bundleDetailed;
+			_bundleInfo = bundleInfo;
 			_shop = shop;
 		}
 		
-		public void LoadBundleDetailedScene() => LoadScene(_bundleDetailed);
+		public void LoadBundleInfoScene() => LoadScene(_bundleInfo);
 		
 		public void LoadShopScene() => LoadScene(_shop);
 	}

@@ -22,25 +22,32 @@ namespace Shop
 				for (var i = 0; i < bundles.Count; i++)
 				{
 					var bundle = _view.CreateBundle(bundles[i]);
-					bundle.OnInfoButtonClicked += OnBundleInfoButtonClicked;
+					bundle.OnInfoButtonClicked += OnShowBundleInfoButtonClicked;
 					bundle.OnBundleOutOfStock += OnBundleOutOfStock;
 					bundle.OnBuyButtonClicked += OnBuyBundle;
 				}
 			}
 
 			_view.CreateStatsViews();
+			_view.OnCloseInfoButtonClicked += OnCloseBundleInfoButtonClicked;
+		}
+
+		private void OnCloseBundleInfoButtonClicked()
+		{
+			_view.DisableInput();
+			_scenesLoader.LoadShopScene();
 		}
 		
-		private void OnBundleInfoButtonClicked(BundleData data)
+		private void OnShowBundleInfoButtonClicked(BundleData data)
 		{
 			_view.DisableInput();
 			_selectedBundleDataReference.Set(data);
-			_scenesLoader.LoadBundleDetailedScene();
+			_scenesLoader.LoadBundleInfoScene();
 		}
 
 		private void OnBundleOutOfStock(Bundle bundle)
 		{
-			bundle.OnInfoButtonClicked -= OnBundleInfoButtonClicked;
+			bundle.OnInfoButtonClicked -= OnShowBundleInfoButtonClicked;
 			bundle.OnBundleOutOfStock -= OnBundleOutOfStock;
 			bundle.OnBuyButtonClicked -= OnBuyBundle;
 		}

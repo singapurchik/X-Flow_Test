@@ -26,7 +26,7 @@ namespace Health
 			var intParam = parameter as PercentAmountParameter;
 			var percent = Mathf.Clamp(intParam?.Percent ?? _defaultPercent, 1, 100);
 
-			var current = Mathf.Max(0, _health.GetCurrentHealth(data));
+			var current = Mathf.Max(0, _health.GetCurrent(data));
 			var delta = Mathf.Max(1, (current * percent + 99) / 100);
 
 			_health.Increase(data, delta);

@@ -18,9 +18,9 @@ namespace Gold
 		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter)
 		{
 			var intParam = parameter as IntAmountParameter;
-			return _gold.GetCurrentGold(data) >= Mathf.Max(1, intParam?.Amount ?? _defaultAmount);
+			return _gold.GetCurrent(data) >= Mathf.Max(1, intParam?.Amount ?? _defaultAmount);
 		}
-		public override bool IsCanApply(IPlayerDataInfo data) => _gold.GetCurrentGold(data) >= _defaultAmount;
+		public override bool IsCanApply(IPlayerDataInfo data) => _gold.GetCurrent(data) >= _defaultAmount;
 
 		public void Apply(PlayerData data, IOperationParameter parameter)
 		{

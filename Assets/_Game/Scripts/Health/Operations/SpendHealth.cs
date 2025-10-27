@@ -18,9 +18,9 @@ namespace Health
 		public bool IsCanApply(IPlayerDataInfo data, IOperationParameter parameter)
 		{
 			var intParam = parameter as IntAmountParameter;
-			return _health.GetCurrentHealth(data) >= Mathf.Max(1, intParam?.Amount ?? _defaultAmount);
+			return _health.GetCurrent(data) >= Mathf.Max(1, intParam?.Amount ?? _defaultAmount);
 		}
-		public override bool IsCanApply(IPlayerDataInfo data) => _health.GetCurrentHealth(data) >= _defaultAmount;
+		public override bool IsCanApply(IPlayerDataInfo data) => _health.GetCurrent(data) >= _defaultAmount;
 
 		public void Apply(PlayerData data, IOperationParameter parameter)
 		{

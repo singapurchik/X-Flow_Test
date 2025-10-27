@@ -23,7 +23,7 @@ namespace Location
 				_targetLocation = fixedValue;
 			}
 
-			_location.SetLocation(data, _targetLocation);
+			_location.SetNew(data, _targetLocation);
 		}
 		
 		private bool IsLobby(LocationType value) => value.Equals(default(LocationType));

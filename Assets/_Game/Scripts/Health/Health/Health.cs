@@ -14,17 +14,15 @@ namespace Health
 		public override PlayerDataValueInfo Info => _info;
 
 		public override void Initialize(PlayerData data)
-		{
-			data.SetInt(_info.CurrentHealthKey, Mathf.Clamp(_startHealth, 0, _maxHealth));
-		}
-
-		public int GetCurrentHealth(IPlayerDataInfo data) => _info.GetCurrentHealth(data);
+			=> data.SetInt(_info.CurrentHealthKey, Mathf.Clamp(_startHealth, 0, _maxHealth));
 		
 		public void Increase(PlayerData data, int amount)
-			=> data.SetInt(_info.CurrentHealthKey, GetCurrentHealth(data) + amount);
+			=> data.SetInt(_info.CurrentHealthKey, GetCurrent(data) + amount);
 
 		public void Decrease(PlayerData data, int amount)
-			=> data.SetInt(_info.CurrentHealthKey, Mathf.Max(0, GetCurrentHealth(data) - amount));
+			=> data.SetInt(_info.CurrentHealthKey, Mathf.Max(0, GetCurrent(data) - amount));
+		
+		public int GetCurrent(IPlayerDataInfo data) => _info.GetCurrentHealth(data);
 
 #if UNITY_EDITOR
 		private void OnValidate()

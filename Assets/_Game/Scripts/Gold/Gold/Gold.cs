@@ -19,7 +19,7 @@ namespace Gold
 		public void Decrease(PlayerData data, int amount)
 			=> data.SetInt(_info.CurrentGoldKey, _info.GetCurrentGold(data) - amount);
 		
-		public int GetCurrentGold(IPlayerDataInfo data) =>_info.GetCurrentGold(data);
+		public int GetCurrent(IPlayerDataInfo data) =>_info.GetCurrentGold(data);
 
 #if UNITY_EDITOR
 		private void OnValidate()

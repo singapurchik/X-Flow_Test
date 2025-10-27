@@ -11,11 +11,11 @@ namespace Location
 		
 		public override PlayerDataValueInfo Info => _info;
 
-		public override void Initialize(PlayerData data) => SetLocation(data, _startLocation);
+		public override void Initialize(PlayerData data) => SetNew(data, _startLocation);
 		
-		public void SetLocation(PlayerData data, LocationType locationType)
+		public void SetNew(PlayerData data, LocationType locationType)
 			=> data.SetString(_info.CurrentLocationKey, locationType.ToString());
 
-		public LocationType GetCurrentLocation(IPlayerDataInfo data) => _info.GetCurrentLocation(data);
+		public LocationType GetCurrent(IPlayerDataInfo data) => _info.GetCurrentLocation(data);
 	}
 }

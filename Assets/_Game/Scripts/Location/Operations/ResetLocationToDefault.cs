@@ -10,8 +10,8 @@ namespace Location
 
 		public override PlayerDataValueInfo Info => _location.Info;
 
-		public override bool IsCanApply(IPlayerDataInfo data) => _location.GetCurrentLocation(data) != default;
+		public override bool IsCanApply(IPlayerDataInfo data) => _location.GetCurrent(data) != default;
 
-		public override void Apply(PlayerData data) => _location.SetLocation(data, default);
+		public override void Apply(PlayerData data) => _location.SetNew(data, default);
 	}
 }
